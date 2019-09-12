@@ -36,7 +36,8 @@ textarea {
         margin-bottom: 0;
     }
 
-        .searchbar .form-group::after {
+    /*
+           .searchbar .form-group::after {
             display: block;
             width: 1px;
             height: 60%;
@@ -46,6 +47,7 @@ textarea {
             top: 20%;
             right: 0;
         }
+       */ 
 
     .searchbar button {
         color: white;
