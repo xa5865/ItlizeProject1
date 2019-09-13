@@ -12,19 +12,20 @@ namespace ItlizeProject1
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+    using ItlizeProject1.Models;
+
     public partial class ProjectDatabaseANPEntities : DbContext
     {
         public ProjectDatabaseANPEntities()
             : base("name=ProjectDatabaseANPEntities")
         {
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
-    
+
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Document> Documents { get; set; }

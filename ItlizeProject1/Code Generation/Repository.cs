@@ -1,0 +1,37 @@
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using ItlizeProject1;
+using ItlizeProject1.Models;
+
+public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+{
+    private DbSet<TEntity> _entities;
+
+    protected Repository(ProjectDatabaseANPEntities context)
+    {
+        _entities = context.Set<TEntity>();
+    }
+
+    public IEnumerable<TEntity> GetAll()
+    {
+        return _entities.ToList();
+    }
+
+    public TEntity GetById(int id)
+    {
+        return _entities.Find(id);
+    }
+
+    public void Add(TEntity entity)
+    {
+        _entities.Add(entity);
+    }
+
+    public void Delete(TEntity entity)
+    {
+        _entities.Remove(entity);
+    }
+}
+
