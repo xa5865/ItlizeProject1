@@ -1,7 +1,6 @@
-
-using ItlizeProject1;
+                
 using ItlizeProject1.Models;
-
+              
 public class DocumentRepository : Repository<Document>, IDocumentRepository
 {
     private ProjectDatabaseANPEntities _context;

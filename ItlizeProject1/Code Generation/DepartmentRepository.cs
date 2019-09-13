@@ -1,7 +1,6 @@
-
-using ItlizeProject1;
+                
 using ItlizeProject1.Models;
-
+              
 public class DepartmentRepository : Repository<Department>, IDepartmentRepository
 {
     private ProjectDatabaseANPEntities _context;

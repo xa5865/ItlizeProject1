@@ -31,7 +31,6 @@ namespace ItlizeProject1.Models
         public string Series { get; set; }
         public string Model { get; set; }
     
-        public virtual Document Document { get; set; }
         public virtual Manufacturer Manufacturer { get; set; }
         public virtual Sale Sale { get; set; }
         public virtual SubCategory SubCategory { get; set; }
@@ -39,5 +38,6 @@ namespace ItlizeProject1.Models
         public virtual ICollection<Property> Properties { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Technical_Specification> Technical_Specification { get; set; }
+        public virtual Document Document { get; set; }
     }
 }

@@ -1,8 +1,7 @@
 
-
-using ItlizeProject1;
+    
 using ItlizeProject1.Models;
-
+              
 public class SubcategoryRepository : Repository<SubCategory>, ISubcategoryRepository
 {
     private ProjectDatabaseANPEntities _context;

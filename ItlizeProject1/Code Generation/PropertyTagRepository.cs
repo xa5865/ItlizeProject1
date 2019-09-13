@@ -1,7 +1,6 @@
-
-using ItlizeProject1;
+                
 using ItlizeProject1.Models;
-
+              
 public class PropertyTagRepository : Repository<Property_Tag>, IPropertyTagRepository
 {
     private ProjectDatabaseANPEntities _context;

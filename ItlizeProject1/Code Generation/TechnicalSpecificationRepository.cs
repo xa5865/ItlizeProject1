@@ -1,7 +1,6 @@
-
-using ItlizeProject1;
+                
 using ItlizeProject1.Models;
-
+              
 public class TechnicalSpecificationRepository : Repository<Technical_Specification>, ITechnicalSpecificationRepository
 {
     private ProjectDatabaseANPEntities _context;

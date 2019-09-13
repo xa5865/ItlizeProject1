@@ -1,7 +1,6 @@
-
-using ItlizeProject1;
+                
 using ItlizeProject1.Models;
-
+              
 public class PropertyRepository : Repository<Property>, IPropertyRepository
 {
     private ProjectDatabaseANPEntities _context;
