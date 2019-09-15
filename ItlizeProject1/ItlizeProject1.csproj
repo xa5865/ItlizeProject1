@@ -220,6 +220,7 @@
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -378,9 +379,11 @@
     <Content Include="Views\Shared\_Layout1.cshtml" />
     <Content Include="Views\Search\Search.cshtml" />
     <Content Include="Views\User\User.cshtml" />
+    <Content Include="Views\Shared\_SearchBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Product\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
