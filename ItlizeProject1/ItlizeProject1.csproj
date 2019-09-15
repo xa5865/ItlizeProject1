@@ -380,10 +380,10 @@
     <Content Include="Views\Search\Search.cshtml" />
     <Content Include="Views\User\User.cshtml" />
     <Content Include="Views\Shared\_SearchBar.cshtml" />
+    <Content Include="Views\Product\Product.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Product\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
