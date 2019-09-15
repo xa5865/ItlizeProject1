@@ -1,5 +1,4 @@
 using System;
-using ItlizeProject1;
 using ItlizeProject1.Models;
 
 public class UnitOfWork : IUnitOfWork
@@ -11,12 +10,12 @@ public class UnitOfWork : IUnitOfWork
         _context = context;
     }
 
-    //Delete this default constructor if using an IoC container
-    public UnitOfWork()
-    {
-        _context = new ProjectDatabaseANPEntities();
-    }
-
+	//Delete this default constructor if using an IoC container
+	public UnitOfWork()
+	{
+		_context = new ProjectDatabaseANPEntities();
+	}
+	
     public ISubcategoryRepository SubCategorys
     {
         get { return new SubcategoryRepository(_context); }
@@ -77,7 +76,7 @@ public class UnitOfWork : IUnitOfWork
         get { return new UserRepository(_context); }
     }
 
-
+    
     public void Save()
     {
         _context.SaveChanges();

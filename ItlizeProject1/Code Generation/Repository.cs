@@ -2,12 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using ItlizeProject1;
 using ItlizeProject1.Models;
 
 public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class
 {
-    private DbSet<TEntity> _entities;
+    private readonly DbSet<TEntity> _entities;
 
     protected Repository(ProjectDatabaseANPEntities context)
     {

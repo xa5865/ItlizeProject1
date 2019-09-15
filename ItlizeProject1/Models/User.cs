@@ -26,7 +26,7 @@ namespace ItlizeProject1.Models
         public string User_LastName { get; set; }
         public int User_Phone { get; set; }
         public string User_Password { get; set; }
-        public byte[] User_Avatar { get; set; }
+        public string User_Avatar { get; set; }
         public string User_Email { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
