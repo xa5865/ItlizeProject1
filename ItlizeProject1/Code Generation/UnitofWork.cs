@@ -56,6 +56,11 @@ public class UnitOfWork : IUnitOfWork
         get { return new TechnicalSpecificationRepository(_context); }
     }
 
+    public ILoginRepository Logins
+    {
+        get { return new LoginRepository(_context); }
+    }
+
     public IPropertyRepository Propertys
     {
         get { return new PropertyRepository(_context); }
@@ -66,6 +71,11 @@ public class UnitOfWork : IUnitOfWork
         get { return new ProductRepository(_context); }
     }
 
+    public INewuserRepository NewUsers
+    {
+        get { return new NewuserRepository(_context); }
+    }
+
     public ITechnicalSpecificationTagRepository Technical_Specification_Tags
     {
         get { return new TechnicalSpecificationTagRepository(_context); }
@@ -74,6 +84,11 @@ public class UnitOfWork : IUnitOfWork
     public IUserRepository Users
     {
         get { return new UserRepository(_context); }
+    }
+
+    public IPropertyTagOptionRepository Property_Tag_Options
+    {
+        get { return new PropertyTagOptionRepository(_context); }
     }
 
     

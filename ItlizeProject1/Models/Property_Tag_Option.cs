@@ -12,15 +12,12 @@ namespace ItlizeProject1.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Technical_Specification
+    public partial class Property_Tag_Option
     {
-        public int Tech_Spec_ID { get; set; }
-        public string Tech_Spec_Name { get; set; }
-        public int Product_ID { get; set; }
-        public Nullable<double> Tech_Spec_Value { get; set; }
-        public Nullable<double> TS_Min { get; set; }
-        public Nullable<double> TS_Max { get; set; }
+        public int Property_Tag_Option_ID { get; set; }
+        public string Property_Tag_Option_Name { get; set; }
+        public int Property_Tag_ID { get; set; }
     
-        public virtual Product Product { get; set; }
+        public virtual Property_Tag Property_Tag { get; set; }
     }
 }

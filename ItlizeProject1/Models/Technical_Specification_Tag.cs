@@ -17,8 +17,8 @@ namespace ItlizeProject1.Models
         public int Technical_Specification_Tag_ID { get; set; }
         public string Technical_Specification_Tag_Name { get; set; }
         public int SubCategory_ID { get; set; }
-        public double Value_Min { get; set; }
-        public double Value_Max { get; set; }
+        public double TST_Min { get; set; }
+        public double TST_Max { get; set; }
     
         public virtual SubCategory SubCategory { get; set; }
     }

@@ -14,10 +14,18 @@ namespace ItlizeProject1.Models
     
     public partial class Property_Tag
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Property_Tag()
+        {
+            this.Property_Tag_Option = new HashSet<Property_Tag_Option>();
+        }
+    
         public int Property_Tag_ID { get; set; }
         public string Property_Tag_Name { get; set; }
         public int SubCategory_ID { get; set; }
     
         public virtual SubCategory SubCategory { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Property_Tag_Option> Property_Tag_Option { get; set; }
     }
 }

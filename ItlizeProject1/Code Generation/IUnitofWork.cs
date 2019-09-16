@@ -10,9 +10,12 @@ public interface IUnitOfWork : IDisposable
     ICategoryRepository Categorys { get; }
     IPropertyTagRepository Property_Tags { get; }
     ITechnicalSpecificationRepository Technical_Specifications { get; }
+    ILoginRepository Logins { get; }
     IPropertyRepository Propertys { get; }
     IProductRepository Products { get; }
+    INewuserRepository NewUsers { get; }
     ITechnicalSpecificationTagRepository Technical_Specification_Tags { get; }
     IUserRepository Users { get; }
+    IPropertyTagOptionRepository Property_Tag_Options { get; }
     void Save();
 }

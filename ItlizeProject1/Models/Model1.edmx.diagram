@@ -13,22 +13,24 @@
         <EntityTypeShape EntityType="ProjectDatabaseANPModel.Property_Tag" Width="2.5" PointX="6" PointY="12.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectDatabaseANPModel.Sale" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectDatabaseANPModel.SubCategory" Width="1.5" PointX="3" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectDatabaseANPModel.Technical_Specification" Width="1.5" PointX="7.5" PointY="9.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectDatabaseANPModel.Technical_Specification_Tag" Width="1.5" PointX="5.25" PointY="15.125" IsExpanded="true" />
         <AssociationConnector Association="ProjectDatabaseANPModel.FK_SubCategory_Category" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectDatabaseANPModel.FK_Department_Manufacturer" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectDatabaseANPModel.FK_Product_Manufacturer" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectDatabaseANPModel.FK_Product_Sales" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectDatabaseANPModel.FK_Product_SubCategory" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectDatabaseANPModel.FK_Property_Product" ManuallyRouted="false" />
-        <AssociationConnector Association="ProjectDatabaseANPModel.FK_Technical_Specification_Product" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectDatabaseANPModel.FK_Property_Tag_SubCategory" ManuallyRouted="false" />
-        <AssociationConnector Association="ProjectDatabaseANPModel.FK_Technical_Specification_Tag_SubCategory" ManuallyRouted="false" />
         <EntityTypeShape EntityType="ProjectDatabaseANPModel.User" Width="1.5" PointX="0.75" PointY="5.375" />
         <AssociationConnector Association="ProjectDatabaseANPModel.FK_Manufacturer_User" />
         <AssociationConnector Association="ProjectDatabaseANPModel.FK_Sales_User" />
         <EntityTypeShape EntityType="ProjectDatabaseANPModel.Document" Width="1.5" PointX="0.75" PointY="0.875" />
         <AssociationConnector Association="ProjectDatabaseANPModel.FK_Product_Document" />
+        <EntityTypeShape EntityType="ProjectDatabaseANPModel.Technical_Specification" Width="1.5" PointX="7.5" PointY="3.5" />
+        <EntityTypeShape EntityType="ProjectDatabaseANPModel.Technical_Specification_Tag" Width="1.5" PointX="5.25" PointY="15.875" />
+        <AssociationConnector Association="ProjectDatabaseANPModel.FK_Technical_Specification_Product" />
+        <AssociationConnector Association="ProjectDatabaseANPModel.FK_Technical_Specification_Tag_SubCategory" />
+        <EntityTypeShape EntityType="ProjectDatabaseANPModel.Property_Tag_Option" Width="1.5" PointX="9.25" PointY="12.625" />
+        <AssociationConnector Association="ProjectDatabaseANPModel.FK_Property_Tag_Option_Property_Tag" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

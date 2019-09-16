@@ -33,9 +33,10 @@ namespace ItlizeProject1.Models
         public virtual DbSet<Property_Tag> Property_Tag { get; set; }
         public virtual DbSet<Sale> Sales { get; set; }
         public virtual DbSet<SubCategory> SubCategories { get; set; }
-        public virtual DbSet<Technical_Specification> Technical_Specification { get; set; }
-        public virtual DbSet<Technical_Specification_Tag> Technical_Specification_Tag { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Document> Documents { get; set; }
+        public virtual DbSet<Technical_Specification> Technical_Specification { get; set; }
+        public virtual DbSet<Technical_Specification_Tag> Technical_Specification_Tag { get; set; }
+        public virtual DbSet<Property_Tag_Option> Property_Tag_Option { get; set; }
     }
 }
