@@ -1,0 +1,3 @@
+﻿function showalert(){
+    alert("aaaaaaaa");
+}

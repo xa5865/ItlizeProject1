@@ -1,0 +1,26 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div class="bar">
+        <ul class="bar1">
+            <li>@Html.ActionLink("Product Summary", "ProductSummary", "Product")</li>
+            <li>@Html.ActionLink("Product Details", "ProductDetails", "Product")</li>
+            <li>@Html.ActionLink("Product Documentation", "ProductDocu", "Product")</li>
+            <li>@Html.ActionLink("Contact", "Contact", "Product")</li>
+        </ul>
+    </div>
+    <div id="mainbody">
+        @RenderBody()
+    </div>
+</body>
+</html>

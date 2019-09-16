@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+@model ItlizeProject1.ViewModel.UserData
+
+@Scripts.Render("~/Content/change-pic.js")
+@Scripts.Render("~/Content/alert.js")
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+</head>
+<body>
+    <div class="loginin" align="center">
+        @using (Ajax.BeginForm("Submit", "Login", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, OnSuccess ="showalert()" }))
+        {
+            <i class="icon1"></i>
+            @Html.TextBoxFor(x => x.L1.Username, new { placeholder = "Username or Email" })
+            @Html.ValidationMessageFor(x => x.L1.Username)<br />
+            @Html.PasswordFor(x => x.L1.Password, new { placeholder = "Password" })
+            @Html.ValidationMessageFor(x => x.L1.Password)<br />
+            @Html.DisplayFor(x => x.L1.Message)<br />
+            @Html.RadioButton("submit1", "Log in", true, new { type = "submit" })
+        }
+        @Html.DisplayFor(x => x.Nw1.Message)
+    </div>
+    <div>
+
+    </div>
+
+</body>
+</html>
+
+@section LOG
+    {
+    <b class="a" data-toggle="modal" data-target="#myModal">SIGN UP</b>
+}
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                @Html.Label("modallabel", "Register as User")
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+
+            @using (Ajax.BeginForm("Submit2", "Login", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace }, new { enctype = "multipart/form-data" }))
+            {
+                <div class="modal-body">
+                    <table>
+                        <tr><td></td><td>@Html.Label("ImagePreview", "Image Preview")</td></tr>
+                        <tr><td></td><td><img src="../../image/grey.jpg" id="pic1" class="img-circle" width="100" height="100"></td></tr>
+                        <tr><td></td><td><input type="file" name="file1" accept="image/*" onchange="loadFile(event)" /></td></tr>
+                        <tr><td></td><td>@Html.Label("ProfilePic", "Your Profile Pic")</td></tr>
+                        <tr>
+                            <td>@Html.Label("usernamelb2", "UserName:")</td>
+                            <td>
+                                @Html.TextBoxFor(x => x.Nw1.Username2, new { placeholder = "User Name" })@Html.ValidationMessageFor(x => x.Nw1.Username2)
+                            </td>
+                        </tr>
+                        <tr>
+                        <tr>
+                            <td>@Html.Label("usernamelbl", "LastName:")</td>
+                            <td>@Html.TextBoxFor(x => x.Nw1.Name1, new { placeholder = "LastName" })@Html.ValidationMessageFor(x => x.Nw1.Name2)</td>
+                        </tr>
+                        <tr>
+                            <td>@Html.Label("usernamelbf", "FirstName:")</td>
+                            <td>@Html.TextBoxFor(x => x.Nw1.Name2, new { placeholder = "FirstName" })@Html.ValidationMessageFor(x => x.Nw1.Name1)</td>
+                        </tr>
+                        <tr>
+                        <tr>
+                            <td>@Html.Label("emaillb1", "Email Address:")</td>
+                            <td>@Html.TextBoxFor(x => x.Nw1.Email1, new { placeholder = "Email Id" })@Html.ValidationMessageFor(x => x.Nw1.Email1)</td>
+                        </tr>
+                        <tr>
+                        <tr>
+                            <td>@Html.Label("phone1", "Phone:")</td>
+                            <td>@Html.TextBoxFor(x => x.Nw1.Phone1, new { placeholder = "Phone Number" })@Html.ValidationMessageFor(x => x.Nw1.Phone1)</td>
+                        </tr>
+                        <tr>
+                        <tr>
+                            <td>@Html.Label("passwordlb2", "Password:")</td>
+                            <td>@Html.PasswordFor(x => x.Nw1.Password2, new { placeholder = "Password" })@Html.ValidationMessageFor(x => x.Nw1.Password2)</td>
+                        </tr>
+                        <tr>
+                            <td>@Html.Label("passwordlb3", "Confrim Password:")</td>
+                            <td>@Html.PasswordFor(x => x.Nw1.Password3, new { placeholder = "Password" })@Html.ValidationMessageFor(x => x.Nw1.Password3)</td>
+                        </tr>
+
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <input id="submit2" type="submit" value="Sign up" />
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+
