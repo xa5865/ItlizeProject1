@@ -18,8 +18,16 @@ namespace ItlizeProject1.ViewModel
 
         public Manufacturer Maf { get; set; }
 
+        public Sale sale { get; set; }
+
+        public Department department { get; set; }
+
         public int productid { get; set; }
 
-        public List<Technical_Specification> ts { get; set; }
+        public List<Technical_Specification> technical_Specifications { get; set; }
+
+        public List<Property> properties { get; set; }
+
+        public List<Document> documents { get; set; }
     }
 }

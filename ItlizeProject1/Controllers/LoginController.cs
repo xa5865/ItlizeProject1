@@ -6,10 +6,6 @@ using System.Web.Mvc;
 using ItlizeProject1.Models;
 using ItlizeProject1.ViewModel;
 
-
-//using ItlizeProjectMVC.Dal;
-
-
 namespace ItlizeProject1.Controllers
 {
     public class LoginController : Controller
@@ -22,7 +18,6 @@ namespace ItlizeProject1.Controllers
             this.Iuser = new UserRepository(new ProjectDatabaseANPEntities());
         }
         // GET: Login
-        //private ProjectDatabaseANPEntities DBcontext;
 
         public ActionResult Load()
         {
@@ -51,14 +46,9 @@ namespace ItlizeProject1.Controllers
         public ActionResult Submit(UserData obj)
         {
             obj.L1.Message = null;
-            //UserData UD1 = new UserData();
-            //Login obj = new Login();
-            //obj.Username = Request.Form["L1.Username"];
-            //obj.Password = Request.Form["L1.Password"];
             if (ModelState.IsValid)
             {
                 var x =Iuser.GetById(int.Parse(obj.L1.Username));
-                //if (obj.L1.Username == "admin" & obj.L1.Password == "admin")
                 if (x == null)
                 {
                     obj.L1.Message = "Account is not valid";
@@ -66,13 +56,11 @@ namespace ItlizeProject1.Controllers
                 }
                 else if (x.User_Password == obj.L1.Password)
                 {
+                    HttpCookie cookie1 = new HttpCookie("username");
+                    HttpCookie cookie2 = new HttpCookie("password");
+                    Response.Cookies["username"].Value = obj.L1.Username;
+                    Response.Cookies["password"].Value = obj.L1.Password;
                     Session["username"] = obj.L1.Username;
-                    //Cookies
-                    //Login obj1 = new Login { Message = "1 is ok" };
-                    //return View("Search");
-
-                    Response.Write("<script>alert('dsafasdf');</script>");
-                    Response.Write(@"<script language='javascript'>alert('Message: \n" + "Hi!" + " .');</script>");
                     return RedirectToAction("Search", "Search");
                 }
                 else
@@ -102,22 +90,20 @@ namespace ItlizeProject1.Controllers
                     return View("login",obj);
                 }
                 else {
-                   // if (Request.Files.Count > 0)
-                    //{
+                    if (Request.Files.Count > 0)
+                    {
                         HttpPostedFileBase pic = Request.Files["file1"];
-                        pic.SaveAs(@"C:\Users\54784\Source\Repos\xa5865\ItlizeProject1\ItlizeProject1\image\" + pic.FileName);
-                        var picname = "../../image/" + pic.FileName;
-                        //newuser.User_Avatar = picname;
-                    //}
+                        var picname = newuser.User_ID + "_" + pic.FileName;
+                        pic.SaveAs(@"C:\Users\54784\Source\Repos\xa5865\ItlizeProject1\ItlizeProject1\image\" + picname);
+                        newuser.User_Avatar = picname;
+                    }
                 newuser.User_FirstName = obj.Nw1.Name1;
                 newuser.User_LastName = obj.Nw1.Name2;
                 newuser.User_Password = obj.Nw1.Password2;
                 newuser.User_Email = obj.Nw1.Email1;
                 newuser.User_Phone = int.Parse(obj.Nw1.Phone1);
-                Iuser.Add(newuser);
-                    //Login obj1 = new Login { Message = "2 is ok" };
+                Iuser.InsertNewUser(newuser);
                     return View("login");
-                    //return RedirectToAction("Search", "Search");
                 }
             }
             else

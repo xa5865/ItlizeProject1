@@ -9,15 +9,14 @@ namespace ItlizeProject1.Models
     public class NewUser
     {
         [Required(ErrorMessage = "The username should not be empty")]
-        [RegularExpression("^[a-zA-Z0-9_-]{0,10}$",ErrorMessage = "The username only contains numbers,letters and _")]
+        [RegularExpression("^[a-zA-Z0-9_-]{0,10}$",ErrorMessage = "The user id should only contains numbers and no longer than 10 characters")]
         public string Username2 { get; set; }
 
         [Required(ErrorMessage = "The password should not be empty")]
-        [RegularExpression("^[a-zA-Z0-9]{0,10}$", ErrorMessage = "The username only contains numbers,letters")]
+        [RegularExpression("^[a-zA-Z0-9]{0,10}$", ErrorMessage = "The password should only contain numbers,letters and no longer than 10 characters")]
         public string Password2 { get; set; }
 
         [Required(ErrorMessage = "The password should not be empty")]
-        [RegularExpression("^[a-zA-Z0-9]{0,10}$", ErrorMessage = "The password only contains numbers,letters")]
         [Compare("Password2",ErrorMessage ="The password should be the same")]
         public string Password3 { get; set; }
 
@@ -26,15 +25,15 @@ namespace ItlizeProject1.Models
         public string Email1 { get; set; }
 
         [Required(ErrorMessage = "The lastname should not be empty")]
-        [RegularExpression("^[a-zA-Z]{0,10}$", ErrorMessage = "The name only contains letters")]
+        [RegularExpression("^[a-zA-Z]{0,100}$", ErrorMessage = "The name should only contain letters")]
         public string Name1 { get; set; }
 
         [Required(ErrorMessage = "The firstname should not be empty")]
-        [RegularExpression("^[a-zA-Z]{0,10}$", ErrorMessage = "The name only contains letters")]
+        [RegularExpression("^[a-zA-Z]{0,100}$", ErrorMessage = "The name should  only contain letters")]
         public string Name2 { get; set; }
 
         [Required(ErrorMessage = "The phone should not be empty")]
-        [Phone(ErrorMessage = "The phone is not valid")]
+        [RegularExpression("^[0-9]{0,13}$", ErrorMessage = "The phone is not valid")]
         public string Phone1 { get; set; }
 
         public string Message { get; set; }

@@ -65,3 +65,56 @@ h3 {
     font-weight: bold;
     color: #3e73bd;
 }
+
+/* login in part*/
+.loginin input {
+    width: 500px;
+    border-radius: 5px;
+}
+.warning {
+    color: red;
+    
+}
+
+
+.loginin #submit1 {
+    width: 50px;
+    margin-left: 450px;
+    color: white;
+    background-color: #3e73bd;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.modal-footer #submit2 {
+    color: white;
+    background-color: #3e73bd;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+/* product part*/
+.table1 {
+    display: inline-block;
+    vertical-align: text-top;
+}
+
+.table1 th {
+    width:500px;
+}
+.table1 td{
+    border-style: solid none;
+    border-width: 1px;
+}
+
+.Phead {
+        border-style: solid none;
+}
+
+table label {
+    margin-bottom: 0;
+}
+
+.Plabel {
+    background-color: #f9f9f9;
+}

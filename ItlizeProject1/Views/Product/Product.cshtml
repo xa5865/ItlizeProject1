@@ -1,4 +1,4 @@
-﻿
+﻿@model ItlizeProject1.ViewModel.ProductSummary
 @{
     ViewBag.Title = "Product";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -26,24 +26,114 @@
         <div id="Summary" class="container tab-pane active">
             <br>
             <h3>Product Summary</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <table class="table1">
+                <tr class="Phead"><th colspan="2"> @Html.Label("DESCRIPTION")</th></tr>
+                <tr><td class="Plabel">@Html.Label("Manufacturer")</td><td>@Html.DisplayFor(x => x.Pdt.Manufacturer_ID)</td></tr>
+                <tr><td class="Plabel">@Html.Label("Series")</td><td>@Html.DisplayFor(x => x.Pdt.Series)</td></tr>
+                <tr><td class="Plabel">@Html.Label("Model")</td><td>@Html.DisplayFor(x => x.Pdt.Model)</td></tr>
+                <tr class="Phead"><th colspan="2">@Html.Label("TYPE")</th></tr>
+                @foreach (var item in Model.properties)
+                {
+                    <tr>
+                        <td class="Plabel">@Html.DisplayFor(y => item.Property_Name)</td>
+                        <td>@Html.DisplayFor(y => item.Property_Value)</td>
+                    </tr>
+                }
+            </table>
+
+            <table class="table1">
+                <tr class="Phead"><th colspan="5">@Html.Label("TECHNICAL SPECIFICATIONS")</th></tr>
+                @foreach (var item in Model.technical_Specifications)
+                {
+            <tr>
+                <td class="Plabel">@Html.DisplayFor(x => item.Tech_Spec_Name)</td>
+                @if (item.Tech_Spec_Value != null)
+                {
+                    <td>@Html.DisplayFor(x => item.Tech_Spec_Value)</td>
+                }
+                @if (item.TS_Min != null)
+                {
+                    <td class="Plabel">@Html.Label("Min")</td>
+                    <td>@Html.DisplayFor(x => item.TS_Min)</td>
+                }
+                @if (item.TS_Max != null)
+                {
+                    <td class="Plabel">@Html.Label("Max")</td>
+                    <td>@Html.DisplayFor(x => item.TS_Max)</td>
+                }
+            </tr>
+                }
+            </table>
         </div>
         <div id="Details" class="container tab-pane fade">
             <br>
             <h3>Product Details</h3>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <table class="table2">
+                <tr>
+                    <td></td>
+                </tr>
+            </table>
         </div>
         <div id="Documentation" class="container tab-pane fade">
             <br>
             <h3>Product Documentation</h3>
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+            <table class="table1">
+                @foreach (var item in Model.documents)
+                {
+                    var a = item.Document_Path.Substring(item.Document_Path.Length - 3);
+                    var b = item.Document_Path.Substring(0, item.Document_Path.Length - 4);
+                    var c = "../image/" + a + ".png";
+                    var d = b + "(" + a + ")";
+                    var e = "../Document/" + item.Document_Path;
+                    <tr>
+                        <td><img src=@c> <a href=@e>@d</a></td>
+                    </tr>
+                }
+            </table>
         </div>
         <div id="Contact" class="container tab-pane fade">
             <br>
             <h3>Contact</h3>
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+            <table class="table1">
+                <tr class="Phead"><th colspan="2">@Html.Label("SALES REPRESENTATIVE")</th></tr>
+                <tr>
+                    <td class="Plabel">@Html.Label("Name")</td>
+                    <td>@Html.DisplayFor(x => x.sale.User.User_LastName)@Html.DisplayFor(x => x.sale.User.User_FirstName)</td>
+                </tr>
+                <tr>
+                    <td class="Plabel">@Html.Label("Phone")</td>
+                    <td>@Html.DisplayFor(x => x.sale.User.User_Phone)</td>
+                </tr>
+                <tr>
+                    <td class="Plabel">@Html.Label("Email")</td>
+                    <td>@Html.DisplayFor(x => x.sale.User.User_Email)</td>
+                </tr>
+                <tr>
+                    <td class="Plabel">@Html.Label("Web")</td>
+                    <td><a href=@Model.sale.Website>@Model.sale.Website</a></td>
+                </tr>
+            </table>
+
+            <table class="table1">
+                <tr class="Phead"><th colspan="2">@Html.Label("MANUFACTURER")</th></tr>
+                <tr>
+                    <td class="Plabel">@Html.Label("Department")</td>
+                    <td>@Html.DisplayFor(x => x.department.Department_Name)</td>
+                </tr>
+                <tr>
+                    <td class="Plabel">@Html.Label("Phone")</td>
+                    <td>@Html.DisplayFor(x => x.Maf.User.User_Phone)</td>
+                </tr>
+                <tr>
+                    <td class="Plabel">@Html.Label("Email")</td>
+                    <td>@Html.DisplayFor(x => x.Maf.User.User_Email)</td>
+                </tr>
+                <tr>
+                    <td class="Plabel">@Html.Label("Web")</td>
+                    <td><a href=@Model.Maf.Website>@Model.Maf.Website</a></td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>
-
 

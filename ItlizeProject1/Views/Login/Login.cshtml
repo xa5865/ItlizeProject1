@@ -7,7 +7,7 @@
 @model ItlizeProject1.ViewModel.UserData
 
 @Scripts.Render("~/Content/change-pic.js")
-@Scripts.Render("~/Content/alert.js")
+
 <!DOCTYPE html>
 
 <html>
@@ -24,18 +24,20 @@
 </head>
 <body>
     <div class="loginin" align="center">
-        @using (Ajax.BeginForm("Submit", "Login", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, OnSuccess ="showalert()" }))
+        @using (Ajax.BeginForm("Submit", "Login", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, OnSuccess = "showalert()" }))
         {
-            <i class="icon1"></i>
+            
             @Html.TextBoxFor(x => x.L1.Username, new { placeholder = "Username or Email" })
-            @Html.ValidationMessageFor(x => x.L1.Username)<br />
+            <span class="glyphicon glyphicon-user"></span><br />
+            <div class="warning">@Html.ValidationMessageFor(x => x.L1.Username)<br /></div>
             @Html.PasswordFor(x => x.L1.Password, new { placeholder = "Password" })
-            @Html.ValidationMessageFor(x => x.L1.Password)<br />
+            <span class="glyphicon glyphicon-lock"></span><br />
+            <div class="warning">@Html.ValidationMessageFor(x => x.L1.Password)<br /></div>
             @Html.DisplayFor(x => x.L1.Message)<br />
             @Html.RadioButton("submit1", "Log in", true, new { type = "submit" })
-        }
-        @Html.DisplayFor(x => x.Nw1.Message)
-    </div>
+            }
+            @Html.DisplayFor(x => x.Nw1.Message)
+        </div>
     <div>
 
     </div>
@@ -48,8 +50,8 @@
     <b class="a" data-toggle="modal" data-target="#myModal">SIGN UP</b>
 }
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:700px">
             <div class="modal-header">
                 @Html.Label("modallabel", "Register as User")
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -65,37 +67,56 @@
                         <tr><td></td><td>@Html.Label("ProfilePic", "Your Profile Pic")</td></tr>
                         <tr>
                             <td>@Html.Label("usernamelb2", "UserName:")</td>
-                            <td>
-                                @Html.TextBoxFor(x => x.Nw1.Username2, new { placeholder = "User Name" })@Html.ValidationMessageFor(x => x.Nw1.Username2)
-                            </td>
+                            <td> @Html.TextBoxFor(x => x.Nw1.Username2, new { placeholder = "User Name" })</td>
+                        </tr>
+                        <tr>
+                            <td></td><td><div class="warning">@Html.ValidationMessageFor(x => x.Nw1.Username2)</div></td>
                         </tr>
                         <tr>
                         <tr>
                             <td>@Html.Label("usernamelbl", "LastName:")</td>
-                            <td>@Html.TextBoxFor(x => x.Nw1.Name1, new { placeholder = "LastName" })@Html.ValidationMessageFor(x => x.Nw1.Name2)</td>
+                            <td>@Html.TextBoxFor(x => x.Nw1.Name1, new { placeholder = "LastName" })</td>
+                        </tr>
+                        <tr>
+                            <td></td><td><div class="warning">@Html.ValidationMessageFor(x => x.Nw1.Name2)</div></td>
                         </tr>
                         <tr>
                             <td>@Html.Label("usernamelbf", "FirstName:")</td>
-                            <td>@Html.TextBoxFor(x => x.Nw1.Name2, new { placeholder = "FirstName" })@Html.ValidationMessageFor(x => x.Nw1.Name1)</td>
+                            <td>@Html.TextBoxFor(x => x.Nw1.Name2, new { placeholder = "FirstName" })</td>
+                        </tr>
+                        <tr>
+                            <td></td><td><div class="warning">@Html.ValidationMessageFor(x => x.Nw1.Name1)</div></td>
                         </tr>
                         <tr>
                         <tr>
                             <td>@Html.Label("emaillb1", "Email Address:")</td>
-                            <td>@Html.TextBoxFor(x => x.Nw1.Email1, new { placeholder = "Email Id" })@Html.ValidationMessageFor(x => x.Nw1.Email1)</td>
+                            <td>@Html.TextBoxFor(x => x.Nw1.Email1, new { placeholder = "Email Id" })</td>
+                        </tr>
+                        <tr>
+                            <td></td><td><div class="warning">@Html.ValidationMessageFor(x => x.Nw1.Email1)</div></td>
                         </tr>
                         <tr>
                         <tr>
                             <td>@Html.Label("phone1", "Phone:")</td>
-                            <td>@Html.TextBoxFor(x => x.Nw1.Phone1, new { placeholder = "Phone Number" })@Html.ValidationMessageFor(x => x.Nw1.Phone1)</td>
+                            <td>@Html.TextBoxFor(x => x.Nw1.Phone1, new { placeholder = "Phone Number" })</td>
+                        </tr>
+                        <tr>
+                            <td></td><td><div class="warning">@Html.ValidationMessageFor(x => x.Nw1.Phone1)</div></td>
                         </tr>
                         <tr>
                         <tr>
                             <td>@Html.Label("passwordlb2", "Password:")</td>
-                            <td>@Html.PasswordFor(x => x.Nw1.Password2, new { placeholder = "Password" })@Html.ValidationMessageFor(x => x.Nw1.Password2)</td>
+                            <td>@Html.PasswordFor(x => x.Nw1.Password2, new { placeholder = "Password" })
+                        </tr>
+                        <tr>
+                            <td></td><td><div class="warning">@Html.ValidationMessageFor(x => x.Nw1.Password2)</div></td>
                         </tr>
                         <tr>
                             <td>@Html.Label("passwordlb3", "Confrim Password:")</td>
-                            <td>@Html.PasswordFor(x => x.Nw1.Password3, new { placeholder = "Password" })@Html.ValidationMessageFor(x => x.Nw1.Password3)</td>
+                            <td>@Html.PasswordFor(x => x.Nw1.Password3, new { placeholder = "Password" })
+                        </tr>
+                        <tr>
+                            <td></td><td><div class="warning">@Html.ValidationMessageFor(x => x.Nw1.Password3)</div></td>
                         </tr>
 
                     </table>
