@@ -9,6 +9,7 @@ public interface IUnitOfWork : IDisposable
     IDepartmentRepository Departments { get; }
     ICategoryRepository Categorys { get; }
     IPropertyTagRepository Property_Tags { get; }
+    IPropertyTagOptionRepository Property_Tag_Options { get; }
     ITechnicalSpecificationRepository Technical_Specifications { get; }
     ILoginRepository Logins { get; }
     IPropertyRepository Propertys { get; }
@@ -16,6 +17,5 @@ public interface IUnitOfWork : IDisposable
     INewuserRepository NewUsers { get; }
     ITechnicalSpecificationTagRepository Technical_Specification_Tags { get; }
     IUserRepository Users { get; }
-    IPropertyTagOptionRepository Property_Tag_Options { get; }
     void Save();
 }

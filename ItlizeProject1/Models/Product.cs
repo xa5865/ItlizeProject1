@@ -19,6 +19,7 @@ namespace ItlizeProject1.Models
         {
             this.Properties = new HashSet<Property>();
             this.Technical_Specification = new HashSet<Technical_Specification>();
+            this.Documents = new HashSet<Document>();
         }
     
         public int Product_ID { get; set; }
@@ -36,8 +37,9 @@ namespace ItlizeProject1.Models
         public virtual SubCategory SubCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Property> Properties { get; set; }
-        public virtual Document Document { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Technical_Specification> Technical_Specification { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Document> Documents { get; set; }
     }
 }
