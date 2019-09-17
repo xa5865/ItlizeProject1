@@ -9,10 +9,6 @@ public class UserRepository : Repository<User>, IUserRepository
     {
         _context = context;
     }
-    public void InsertNewUser(User user)
-    {
-        _context.Users.Add(user);
-        _context.SaveChanges();
-    }
+
     //Override any generic method for your own custom implemention, add new repository methods to the IUserRepository.cs file
 }

@@ -1,4 +1,5 @@
 ﻿
+@using ItlizeProject1.Models
 @model ItlizeProject1.ViewModel.SearchResultVM
 
 <html>
@@ -6,6 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <meta name="viewport" content="width=device-width" />
     <title>View</title>
     <style>
@@ -19,7 +21,7 @@
         }
 
         #search_result {
-            width: 85%;
+            width: 75%;
         }
 
         table {
@@ -61,10 +63,6 @@
             background-color: #f1f1f1;
         }
 
-        .filter_td {
-            width: 250px;
-        }
-
         input {
             display: inline-block;
             vertical-align: middle;
@@ -73,120 +71,176 @@
 </head>
 <body>
     <div>
+        <div id="mainbody" class="row" style="margin-top: 80px; border: 1px solid black">
 
-        <table id="mainbody" style="margin-top: 80px">
-
-            <tr>
-                <td id="filter_left_container">
-                    <table id="filter_left">
-                        <tr>
-                            <td class="filter_td">
-                                <label style="margin-left: 5px"> Search:</label>
-                                <button id="button_save" style="margin-left: 45px">
-                                    Save
-                                </button>
-                                <button id="button_clear" style="margin-left: 5px">
-                                    Clear
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="filter_td">
-                                <button class="collapsible">Product Type</button>
-                                <div class="content">
-                                    <label style="margin-left: 5px">Model Year:</label>
+            <div id="filter_left_container" class="col-3">
+                <table id="filter_left">
+                    <tr>
+                        <td class="filter_td">
+                            <label style="margin-left: 5px"> Search:</label>
+                            <button id="button_save" style="margin-left: 45px">
+                                Save
+                            </button>
+                            <button id="button_clear" style="margin-left: 5px">
+                                Clear
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="filter_td">
+                            <button class="collapsible">Product Type</button>
+                            <div class="content">
+                                <p>
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-sort"></i>Model Year </span>
                                     <div class="div_two_inputs">
-                                        <input type="number" class="min_max_input " id="model_year_min" style="width: 50px; height: 25px; margin-left: 10px">
+                                        <input type="number" class="min_max_input search" id="model_year_min" style="width: 50px; height: 25px; margin-left: 10px">
                                         -
                                         <input type="number" class="min_max_input" id="model_year_max" style="width: 50px; height: 25px">
                                     </div>
+                                </p>
+                                <p>
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-sort"></i>Use Type </span>
+                                    <select id="use_type">
+                                        <option value="Commercial" class="search">Commercial</option>
+                                        <option value="Industrial" class="search">Industrial</option>
+                                        <option value="Residential" class="search">Residential</option>
+                                    </select>
+                                </p>
+                                <p>
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-sort"></i>Application</span>
+                                    <select id="application">
+                                        <option value="Indoor" class="search">Indoor</option>
+                                        <option value="Outdoor" class="search">Outdoor</option>
+                                    </select>
+                                </p>
+                                <p>
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-sort"></i>Mounnting Location</span>
+                                    <select id="mounting_location">
+                                        <option value="Roof" class="search">Roof</option>
+                                        <option value="Wall" class="search">Wall</option>
+                                        <option value="Free Standing" class="search">Free Standing</option>
+                                    </select>
+                                </p>
+                                <p>
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-sort"></i>Accessories</span>
+                                    <select id="accessories">
+                                        <option value="With light" class="search">With light</option>
+                                        <option value="Without light" class="search">Without light</option>
+                                    </select>
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="filter_td">
+                            <button class="collapsible">Technical Specifications</button>
+                            <div class="content">
+                                <p>
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-sort"></i> Air Flow (CFM)</span>
+                                    <div class="div_two_inputs">
+                                        Min <input type="number" class="min_max_input search" id="airflow_min" />
+                                        Max <input type="number" class="min_max_input search" id="airflow_max" />
+                                    </div>
+                                </p>
+                                <p>
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-sort"></i> Max Power (W)</span>
+                                    <div class="div_two_inputs">
+                                        Min <input type="number" class="min_max_input search" id="maxpower_min" />
+                                        Max <input type="number" class="min_max_input search" id="maxpower_max" />
+                                    </div>
+                                </p>
+                                <p>
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-sort"></i> Max Operating Voltage</span>
+                                    <div class="div_two_inputs">
+                                        Min <input type="number" class="min_max_input search" id="maxoperatingvoltage_min" />
+                                        Max <input type="number" class="min_max_input search" id="maxoperatingvoltage_max" />
+                                    </div>
+                                </p>
+                                <p>
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-sort"></i> Max Fun Speed (RPM)</span>
+                                    <div class="div_two_inputs">
+                                        Min <input type="number" class="min_max_input search" id="maxfunspeed_min" />
+                                        Max <input type="number" class="min_max_input search" id="maxfunspeed_max" />
+                                    </div>
+                                </p>
+                                <p>
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-sort"></i> Number of Fan Speeds</span>
+                                    <div class="div_two_inputs">
+                                        Min <input type="number" class="min_max_input search" id="numberoffunsppeds_min" />
+                                        Max <input type="number" class="min_max_input search" id="numberoffunsppeds_max" />
+                                    </div>
+                                </p>
+                                <p>
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-sort"></i> Sound at Max Speed (dBA)</span>
+                                    <div class="div_two_inputs">
+                                        Min <input type="number" class="min_max_input search" id="soundatmaxspeed_min" />
+                                        Max <input type="number" class="min_max_input search" id="soundatmaxspeed_max" />
+                                    </div>
+                                </p>
+                                <p>
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-sort"></i> Fun sweep diameter (in)</span>
+                                    <div class="div_two_inputs">
+                                        Min <input type="number" class="min_max_input search" id="funsweepdiameter_min" />
+                                        Max <input type="number" class="min_max_input search" id="funsweepdiameter_max" />
+                                    </div>
+                                </p>
+                                <p>
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-sort"></i> Height (in)</span>
+                                    <div class="div_two_inputs">
+                                        Min <input type="number" class="min_max_input search" id="height_min" />
+                                        Max <input type="number" class="min_max_input search" id="height_max" />
+                                    </div>
+                                </p>
+                                <p>
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-sort"></i> Weight (lbs)</span>
+                                    <div class="div_two_inputs">
+                                        Min <input type="number" class="min_max_input search" id="weight_min" />
+                                        Max <input type="number" class="min_max_input search" id="weight_max" />
+                                    </div>
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="filter_td">
+                            <button class="collapsible">Brand</button>
+                            <div class="content">
+                                <div id="brand_options">
+                                    <input type="checkbox" class="brand_options search" value="Samsung" />Samsung<br />
+                                    <input type="checkbox" class="brand_options search" value="Sony" />Sony<br />
+                                    <input type="checkbox" class="brand_options search" value="ACDC" />ACDC<br />
+                                    <input type="checkbox" class="brand_options search" value="Disney" />Samsung<br />
                                 </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="filter_td">
-                                <button class="collapsible">Technical Specifications</button>
-                                <div class="content">
-                                    <p>
-                                        <span class="input-group-addon"><i class="glyphicon glyphicon-sort"></i> Air Flow (CFM)</span>
-                                        <div class="div_two_inputs">
-                                            Min <input type="number" class="min_max_input" id="airflow_min" />
-                                            Max <input type="number" class="min_max_input" id="airflow_max" />
-                                        </div>
-                                    </p>
-                                    <p>
-                                        <span class="input-group-addon"><i class="glyphicon glyphicon-sort"></i> Max Power (W)</span>
-                                        <div class="div_two_inputs">
-                                            Min <input type="number" class="min_max_input" id="maxpower_min" />
-                                            Max <input type="number" class="min_max_input" id="maxpower_max" />
-                                        </div>
-                                    </p>
-                                    <p>
-                                        <span class="input-group-addon"><i class="glyphicon glyphicon-sort"></i> Max Operating Voltage</span>
-                                        <div class="div_two_inputs">
-                                            Min <input type="number" class="min_max_input" id="maxoperatingvoltage_min" />
-                                            Max <input type="number" class="min_max_input" id="maxoperatingvoltage_max" />
-                                        </div>
-                                    </p>
-                                    <p>
-                                        <span class="input-group-addon"><i class="glyphicon glyphicon-sort"></i> Max Fun Speed (RPM)</span>
-                                        <div class="div_two_inputs">
-                                            Min <input type="number" class="min_max_input" id="maxfunspeed_min" />
-                                            Max <input type="number" class="min_max_input" id="maxfunspeed_max" />
-                                        </div>
-                                    </p>
-                                    <p>
-                                        <span class="input-group-addon"><i class="glyphicon glyphicon-sort"></i> Number of Fan Speeds</span>
-                                        <div class="div_two_inputs">
-                                            Min <input type="number" class="min_max_input" id="numberoffunsppeds_min" />
-                                            Max <input type="number" class="min_max_input" id="numberoffunsppeds_max" />
-                                        </div>
-                                    </p>
-                                    <p>
-                                        <span class="input-group-addon"><i class="glyphicon glyphicon-sort"></i> Sound at Max Speed (dBA)</span>
-                                        <div class="div_two_inputs">
-                                            Min <input type="number" class="min_max_input" id="soundatmaxspeed_min" />
-                                            Max <input type="number" class="min_max_input" id="soundatmaxspeed_max" />
-                                        </div>
-                                    </p>
-                                    <p>
-                                        <span class="input-group-addon"><i class="glyphicon glyphicon-sort"></i> Fun sweep diameter (in)</span>
-                                        <div class="div_two_inputs">
-                                            Min <input type="number" class="min_max_input" id="funsweepdiameter_min" />
-                                            Max <input type="number" class="min_max_input" id="funsweepdiameter_max" />
-                                        </div>
-                                    </p>
-                                    <p>
-                                        <span class="input-group-addon"><i class="glyphicon glyphicon-sort"></i> Height (in)</span>
-                                        <div class="div_two_inputs">
-                                            Min <input type="number" class="min_max_input" id="height_min" />
-                                            Max <input type="number" class="min_max_input" id="height_max" />
-                                        </div>
-                                    </p>
-                                    <p>
-                                        <span class="input-group-addon"><i class="glyphicon glyphicon-sort"></i> Weight (lbs)</span>
-                                        <div class="div_two_inputs">
-                                            Min <input type="number" class="min_max_input" id="weight_min" />
-                                            Max <input type="number" class="min_max_input" id="weight_max" />
-                                        </div>
-                                    </p>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="filter_td">
-                                <button class="collapsible">Brand</button>
-                                <div class="content">
-                                    123123
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                <td id="search_result"></td>
-            </tr>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="search_result" class="col-9" style="display: inline-block; border: 1px solid black">
+                <div id="result_table">
 
-        </table>
+                    @foreach (Product p in Model.Products)
+                    {
+                        <div class="search_result" style="width: 250px; border: 1px solid black; display: inline-block; margin-left: 20px; margin-top: 25px">
+                            <p>"Product ID"+@p.Product_ID</p>
+                            <p>@p.Product_Name</p>
+                            <p>@p.Model</p>
+                            <p>@p.Series</p>
+                            @foreach (Technical_Specification ts in Model.TechnicalSpecifications)
+                            {
+                                if (ts.Product_ID == p.Product_ID)
+                                {
+                                    <p>@ts.Tech_Spec_Name:  @ts.Tech_Spec_Value</p>
+                                }
+                            }
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+
+        </div>
     </div>
 
     <script>
@@ -204,9 +258,37 @@
                 }
             });
         }
+
+        $(document).ready(function () {
+            $(".search").keyup(function () {
+                var model_year_min = document.getElementById("model_year_min").value;
+                var model_year_max = document.getElementById("model_year_max").value;
+                var use_type = document.getElementById("use_type").options[document.getElementById("use_type").selectedIndex].value;
+                var application = document.getElementById("application").options[document.getElementById("application").selectedIndex].value;
+                var mounting_location = document.getElementById("mounting_location").options[document.getElementById("mounting_location").selectedIndex].value;
+                var accessories = document.getElementById("accessories").options[document.getElementById("accessories").selectedIndex].value;
+                var air_flow_min = document.getElementById("airflow_min").value;
+                var air_flow_max = document.getElementById("airflow_max").value;
+                var max_power_min = document.getElementById("maxpower_min").value;
+                var max_power_max = document.getElementById("maxpower_max").value;
+                var max_operating_voltage_min = document.getElementById("maxoperatingvoltage_min").value;
+                var max_operating_voltage_max = document.getElementById("maxoperatingvoltage_max").value;
+                var max_fun_speed_min = document.getElementById("maxfunspeed_min").value;
+                var max_fun_speed_max = document.getElementById("maxfunspeed_max").value;
+                var number_of_fun_speed_min = document.getElementById("numberoffunsppeds_min").value;
+                var number_of_fun_speed_max = document.getElementById("numberoffunsppeds_max").value;
+                var sound_at_max_speed_min = document.getElementById("soundatmaxspeed_min").value;
+                var sound_at_max_speed_max = document.getElementById("soundatmaxspeed_max").value;
+                var fun_sweep_diameter_min = document.getElementById("funsweepdiameter_min").value;
+                var fun_sweep_diameter_max = document.getElementById("funsweepdiameter_max").value;
+                var height_min = document.getElementById("height_min").value;
+                var height_max = document.getElementById("height_max").value;
+                var weight_min = document.getElementById("weight_min").value;
+                var weight_max = document.getElementById("weight_max").value;
+            });
+        });
     </script>
+
 </body>
 </html>
-@{
-    ViewBag.Title = "Home Page";
-}
+

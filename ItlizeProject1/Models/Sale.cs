@@ -24,8 +24,8 @@ namespace ItlizeProject1.Models
         public int User_ID { get; set; }
         public string Website { get; set; }
     
+        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
-        public virtual User User { get; set; }
     }
 }

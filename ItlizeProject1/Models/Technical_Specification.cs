@@ -17,9 +17,7 @@ namespace ItlizeProject1.Models
         public int Tech_Spec_ID { get; set; }
         public string Tech_Spec_Name { get; set; }
         public int Product_ID { get; set; }
-        public Nullable<double> Tech_Spec_Value { get; set; }
-        public Nullable<double> TS_Min { get; set; }
-        public Nullable<double> TS_Max { get; set; }
+        public double Tech_Spec_Value { get; set; }
     
         public virtual Product Product { get; set; }
     }

@@ -17,21 +17,24 @@ namespace ItlizeProject1.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
+            this.Documents = new HashSet<Document>();
             this.Properties = new HashSet<Property>();
             this.Technical_Specification = new HashSet<Technical_Specification>();
-            this.Documents = new HashSet<Document>();
         }
     
         public int Product_ID { get; set; }
         public int Manufacturer_ID { get; set; }
         public int SubCategory_ID { get; set; }
         public string Product_Name { get; set; }
-        public byte[] Product_Image { get; set; }
+        public string Product_Image { get; set; }
         public int Document_ID { get; set; }
         public int Sales_ID { get; set; }
         public string Series { get; set; }
         public string Model { get; set; }
+        public string Product_Detail { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Document> Documents { get; set; }
         public virtual Manufacturer Manufacturer { get; set; }
         public virtual Sale Sale { get; set; }
         public virtual SubCategory SubCategory { get; set; }
@@ -39,7 +42,5 @@ namespace ItlizeProject1.Models
         public virtual ICollection<Property> Properties { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Technical_Specification> Technical_Specification { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Document> Documents { get; set; }
     }
 }

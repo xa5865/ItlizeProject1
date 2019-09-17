@@ -46,11 +46,12 @@
           <Property Name="Manufacturer_ID" Type="int" Nullable="false" />
           <Property Name="SubCategory_ID" Type="int" Nullable="false" />
           <Property Name="Product_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Product_Image" Type="image" />
+          <Property Name="Product_Image" Type="nvarchar" MaxLength="50" />
           <Property Name="Document_ID" Type="int" Nullable="false" />
           <Property Name="Sales_ID" Type="int" Nullable="false" />
           <Property Name="Series" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Model" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Product_Detail" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Property">
           <Key>
@@ -100,9 +101,7 @@
           <Property Name="Tech_Spec_ID" Type="int" Nullable="false" />
           <Property Name="Tech_Spec_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Product_ID" Type="int" Nullable="false" />
-          <Property Name="Tech_Spec_Value" Type="float" />
-          <Property Name="TS_Min" Type="float" />
-          <Property Name="TS_Max" Type="float" />
+          <Property Name="Tech_Spec_Value" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="Technical_Specification_Tag">
           <Key>
@@ -380,28 +379,8 @@
           <Property Name="User_ID" Type="Int32" Nullable="false" />
           <Property Name="Website" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Departments" Relationship="Self.FK_Department_Manufacturer" FromRole="Manufacturer" ToRole="Department" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_Product_Manufacturer" FromRole="Manufacturer" ToRole="Product" />
           <NavigationProperty Name="User" Relationship="ProjectDatabaseANPModel.FK_Manufacturer_User" FromRole="Manufacturer" ToRole="User" />
-        </EntityType>
-        <EntityType Name="Product">
-          <Key>
-            <PropertyRef Name="Product_ID" />
-          </Key>
-          <Property Name="Product_ID" Type="Int32" Nullable="false" />
-          <Property Name="Manufacturer_ID" Type="Int32" Nullable="false" />
-          <Property Name="SubCategory_ID" Type="Int32" Nullable="false" />
-          <Property Name="Product_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Product_Image" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="Document_ID" Type="Int32" Nullable="false" />
-          <Property Name="Sales_ID" Type="Int32" Nullable="false" />
-          <Property Name="Series" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Manufacturer" Relationship="Self.FK_Product_Manufacturer" FromRole="Product" ToRole="Manufacturer" />
-          <NavigationProperty Name="Sale" Relationship="Self.FK_Product_Sales" FromRole="Product" ToRole="Sales" />
-          <NavigationProperty Name="SubCategory" Relationship="Self.FK_Product_SubCategory" FromRole="Product" ToRole="SubCategory" />
-          <NavigationProperty Name="Properties" Relationship="Self.FK_Property_Product" FromRole="Product" ToRole="Property" />
-          <NavigationProperty Name="Technical_Specification" Relationship="ProjectDatabaseANPModel.FK_Technical_Specification_Product" FromRole="Product" ToRole="Technical_Specification" />
-          <NavigationProperty Name="Documents" Relationship="ProjectDatabaseANPModel.FK_Document_Product" FromRole="Product" ToRole="Document" />
+          <NavigationProperty Name="Products" Relationship="ProjectDatabaseANPModel.FK_Product_Manufacturer" FromRole="Manufacturer" ToRole="Product" />
         </EntityType>
         <EntityType Name="Property">
           <Key>
@@ -411,7 +390,7 @@
           <Property Name="Property_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Product_ID" Type="Int32" Nullable="false" />
           <Property Name="Property_Value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_Property_Product" FromRole="Property" ToRole="Product" />
+          <NavigationProperty Name="Product" Relationship="ProjectDatabaseANPModel.FK_Property_Product" FromRole="Property" ToRole="Product" />
         </EntityType>
         <EntityType Name="Property_Tag">
           <Key>
@@ -430,8 +409,8 @@
           <Property Name="Sales_ID" Type="Int32" Nullable="false" />
           <Property Name="User_ID" Type="Int32" Nullable="false" />
           <Property Name="Website" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_Product_Sales" FromRole="Sales" ToRole="Product" />
           <NavigationProperty Name="User" Relationship="ProjectDatabaseANPModel.FK_Sales_User" FromRole="Sale" ToRole="User" />
+          <NavigationProperty Name="Products" Relationship="ProjectDatabaseANPModel.FK_Product_Sales" FromRole="Sale" ToRole="Product" />
         </EntityType>
         <EntityType Name="SubCategory">
           <Key>
@@ -441,9 +420,9 @@
           <Property Name="SubCategory_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Category_ID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Category" Relationship="Self.FK_SubCategory_Category" FromRole="SubCategory" ToRole="Category" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_Product_SubCategory" FromRole="SubCategory" ToRole="Product" />
           <NavigationProperty Name="Property_Tag" Relationship="Self.FK_Property_Tag_SubCategory" FromRole="SubCategory" ToRole="Property_Tag" />
           <NavigationProperty Name="Technical_Specification_Tag" Relationship="ProjectDatabaseANPModel.FK_Technical_Specification_Tag_SubCategory" FromRole="SubCategory" ToRole="Technical_Specification_Tag" />
+          <NavigationProperty Name="Products" Relationship="ProjectDatabaseANPModel.FK_Product_SubCategory" FromRole="SubCategory" ToRole="Product" />
         </EntityType>
         <Association Name="FK_SubCategory_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
@@ -469,54 +448,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Product_Manufacturer">
-          <End Role="Manufacturer" Type="Self.Manufacturer" Multiplicity="1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Manufacturer">
-              <PropertyRef Name="Manufacturer_ID" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="Manufacturer_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Product_Sales">
-          <End Role="Sales" Type="Self.Sale" Multiplicity="1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sales">
-              <PropertyRef Name="Sales_ID" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="Sales_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Product_SubCategory">
-          <End Role="SubCategory" Type="Self.SubCategory" Multiplicity="1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SubCategory">
-              <PropertyRef Name="SubCategory_ID" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="SubCategory_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Property_Product">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="Property" Type="Self.Property" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Product_ID" />
-            </Principal>
-            <Dependent Role="Property">
-              <PropertyRef Name="Product_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Property_Tag_SubCategory">
           <End Role="SubCategory" Type="Self.SubCategory" Multiplicity="1" />
           <End Role="Property_Tag" Type="Self.Property_Tag" Multiplicity="*" />
@@ -533,7 +464,6 @@
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Departments" EntityType="Self.Department" />
           <EntitySet Name="Manufacturers" EntityType="Self.Manufacturer" />
-          <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="Properties" EntityType="Self.Property" />
           <EntitySet Name="Property_Tag" EntityType="Self.Property_Tag" />
           <EntitySet Name="Sales" EntityType="Self.Sale" />
@@ -545,22 +475,6 @@
           <AssociationSet Name="FK_Department_Manufacturer" Association="Self.FK_Department_Manufacturer">
             <End Role="Manufacturer" EntitySet="Manufacturers" />
             <End Role="Department" EntitySet="Departments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Product_Manufacturer" Association="Self.FK_Product_Manufacturer">
-            <End Role="Manufacturer" EntitySet="Manufacturers" />
-            <End Role="Product" EntitySet="Products" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Product_Sales" Association="Self.FK_Product_Sales">
-            <End Role="Sales" EntitySet="Sales" />
-            <End Role="Product" EntitySet="Products" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Product_SubCategory" Association="Self.FK_Product_SubCategory">
-            <End Role="SubCategory" EntitySet="SubCategories" />
-            <End Role="Product" EntitySet="Products" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Property_Product" Association="Self.FK_Property_Product">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="Property" EntitySet="Properties" />
           </AssociationSet>
           <AssociationSet Name="FK_Property_Tag_SubCategory" Association="Self.FK_Property_Tag_SubCategory">
             <End Role="SubCategory" EntitySet="SubCategories" />
@@ -575,12 +489,7 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Sale" EntitySet="Sales" />
           </AssociationSet>
-          <EntitySet Name="Technical_Specification" EntityType="ProjectDatabaseANPModel.Technical_Specification" />
           <EntitySet Name="Technical_Specification_Tag" EntityType="ProjectDatabaseANPModel.Technical_Specification_Tag" />
-          <AssociationSet Name="FK_Technical_Specification_Product" Association="ProjectDatabaseANPModel.FK_Technical_Specification_Product">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="Technical_Specification" EntitySet="Technical_Specification" />
-          </AssociationSet>
           <AssociationSet Name="FK_Technical_Specification_Tag_SubCategory" Association="ProjectDatabaseANPModel.FK_Technical_Specification_Tag_SubCategory">
             <End Role="SubCategory" EntitySet="SubCategories" />
             <End Role="Technical_Specification_Tag" EntitySet="Technical_Specification_Tag" />
@@ -591,9 +500,31 @@
             <End Role="Property_Tag_Option" EntitySet="Property_Tag_Option" />
           </AssociationSet>
           <EntitySet Name="Documents" EntityType="ProjectDatabaseANPModel.Document" />
+          <EntitySet Name="Products" EntityType="ProjectDatabaseANPModel.Product" />
+          <EntitySet Name="Technical_Specification" EntityType="ProjectDatabaseANPModel.Technical_Specification" />
           <AssociationSet Name="FK_Document_Product" Association="ProjectDatabaseANPModel.FK_Document_Product">
             <End Role="Product" EntitySet="Products" />
             <End Role="Document" EntitySet="Documents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Manufacturer" Association="ProjectDatabaseANPModel.FK_Product_Manufacturer">
+            <End Role="Manufacturer" EntitySet="Manufacturers" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Sales" Association="ProjectDatabaseANPModel.FK_Product_Sales">
+            <End Role="Sale" EntitySet="Sales" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_SubCategory" Association="ProjectDatabaseANPModel.FK_Product_SubCategory">
+            <End Role="SubCategory" EntitySet="SubCategories" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Property_Product" Association="ProjectDatabaseANPModel.FK_Property_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Property" EntitySet="Properties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Technical_Specification_Product" Association="ProjectDatabaseANPModel.FK_Technical_Specification_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Technical_Specification" EntitySet="Technical_Specification" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="User">
@@ -634,18 +565,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Technical_Specification">
-          <Key>
-            <PropertyRef Name="Tech_Spec_ID" />
-          </Key>
-          <Property Name="Tech_Spec_ID" Type="Int32" Nullable="false" />
-          <Property Name="Tech_Spec_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Product_ID" Type="Int32" Nullable="false" />
-          <Property Name="Tech_Spec_Value" Type="Double" />
-          <Property Name="TS_Min" Type="Double" />
-          <Property Name="TS_Max" Type="Double" />
-          <NavigationProperty Name="Product" Relationship="ProjectDatabaseANPModel.FK_Technical_Specification_Product" FromRole="Technical_Specification" ToRole="Product" />
-        </EntityType>
         <EntityType Name="Technical_Specification_Tag">
           <Key>
             <PropertyRef Name="Technical_Specification_Tag_ID" />
@@ -657,18 +576,6 @@
           <Property Name="TST_Max" Type="Double" Nullable="false" />
           <NavigationProperty Name="SubCategory" Relationship="ProjectDatabaseANPModel.FK_Technical_Specification_Tag_SubCategory" FromRole="Technical_Specification_Tag" ToRole="SubCategory" />
         </EntityType>
-        <Association Name="FK_Technical_Specification_Product">
-          <End Type="ProjectDatabaseANPModel.Product" Role="Product" Multiplicity="1" />
-          <End Type="ProjectDatabaseANPModel.Technical_Specification" Role="Technical_Specification" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Product_ID" />
-            </Principal>
-            <Dependent Role="Technical_Specification">
-              <PropertyRef Name="Product_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Technical_Specification_Tag_SubCategory">
           <End Type="ProjectDatabaseANPModel.SubCategory" Role="SubCategory" Multiplicity="1" />
           <End Type="ProjectDatabaseANPModel.Technical_Specification_Tag" Role="Technical_Specification_Tag" Multiplicity="*" />
@@ -711,6 +618,37 @@
           <Property Name="Product_ID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Product" Relationship="ProjectDatabaseANPModel.FK_Document_Product" FromRole="Document" ToRole="Product" />
         </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Product_ID" />
+          </Key>
+          <Property Name="Product_ID" Type="Int32" Nullable="false" />
+          <Property Name="Manufacturer_ID" Type="Int32" Nullable="false" />
+          <Property Name="SubCategory_ID" Type="Int32" Nullable="false" />
+          <Property Name="Product_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Product_Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Document_ID" Type="Int32" Nullable="false" />
+          <Property Name="Sales_ID" Type="Int32" Nullable="false" />
+          <Property Name="Series" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Product_Detail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Documents" Relationship="ProjectDatabaseANPModel.FK_Document_Product" FromRole="Product" ToRole="Document" />
+          <NavigationProperty Name="Manufacturer" Relationship="ProjectDatabaseANPModel.FK_Product_Manufacturer" FromRole="Product" ToRole="Manufacturer" />
+          <NavigationProperty Name="Sale" Relationship="ProjectDatabaseANPModel.FK_Product_Sales" FromRole="Product" ToRole="Sale" />
+          <NavigationProperty Name="SubCategory" Relationship="ProjectDatabaseANPModel.FK_Product_SubCategory" FromRole="Product" ToRole="SubCategory" />
+          <NavigationProperty Name="Properties" Relationship="ProjectDatabaseANPModel.FK_Property_Product" FromRole="Product" ToRole="Property" />
+          <NavigationProperty Name="Technical_Specification" Relationship="ProjectDatabaseANPModel.FK_Technical_Specification_Product" FromRole="Product" ToRole="Technical_Specification" />
+        </EntityType>
+        <EntityType Name="Technical_Specification">
+          <Key>
+            <PropertyRef Name="Tech_Spec_ID" />
+          </Key>
+          <Property Name="Tech_Spec_ID" Type="Int32" Nullable="false" />
+          <Property Name="Tech_Spec_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Product_ID" Type="Int32" Nullable="false" />
+          <Property Name="Tech_Spec_Value" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="ProjectDatabaseANPModel.FK_Technical_Specification_Product" FromRole="Technical_Specification" ToRole="Product" />
+        </EntityType>
         <Association Name="FK_Document_Product">
           <End Type="ProjectDatabaseANPModel.Product" Role="Product" Multiplicity="1" />
           <End Type="ProjectDatabaseANPModel.Document" Role="Document" Multiplicity="*" />
@@ -719,6 +657,66 @@
               <PropertyRef Name="Product_ID" />
             </Principal>
             <Dependent Role="Document">
+              <PropertyRef Name="Product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Manufacturer">
+          <End Type="ProjectDatabaseANPModel.Manufacturer" Role="Manufacturer" Multiplicity="1" />
+          <End Type="ProjectDatabaseANPModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturer">
+              <PropertyRef Name="Manufacturer_ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Manufacturer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Sales">
+          <End Type="ProjectDatabaseANPModel.Sale" Role="Sale" Multiplicity="1" />
+          <End Type="ProjectDatabaseANPModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sale">
+              <PropertyRef Name="Sales_ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Sales_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_SubCategory">
+          <End Type="ProjectDatabaseANPModel.SubCategory" Role="SubCategory" Multiplicity="1" />
+          <End Type="ProjectDatabaseANPModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubCategory">
+              <PropertyRef Name="SubCategory_ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="SubCategory_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Property_Product">
+          <End Type="ProjectDatabaseANPModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="ProjectDatabaseANPModel.Property" Role="Property" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="Property">
+              <PropertyRef Name="Product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Technical_Specification_Product">
+          <End Type="ProjectDatabaseANPModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="ProjectDatabaseANPModel.Technical_Specification" Role="Technical_Specification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="Technical_Specification">
               <PropertyRef Name="Product_ID" />
             </Dependent>
           </ReferentialConstraint>
@@ -754,21 +752,6 @@
                 <ScalarProperty Name="Manufacturer_ID" ColumnName="Manufacturer_ID" />
                 <ScalarProperty Name="User_ID" ColumnName="User_ID" />
                 <ScalarProperty Name="Website" ColumnName="Website" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="ProjectDatabaseANPModel.Product">
-              <MappingFragment StoreEntitySet="Product">
-                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
-                <ScalarProperty Name="Manufacturer_ID" ColumnName="Manufacturer_ID" />
-                <ScalarProperty Name="SubCategory_ID" ColumnName="SubCategory_ID" />
-                <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
-                <ScalarProperty Name="Product_Image" ColumnName="Product_Image" />
-                <ScalarProperty Name="Document_ID" ColumnName="Document_ID" />
-                <ScalarProperty Name="Sales_ID" ColumnName="Sales_ID" />
-                <ScalarProperty Name="Series" ColumnName="Series" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -822,18 +805,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Technical_Specification">
-            <EntityTypeMapping TypeName="ProjectDatabaseANPModel.Technical_Specification">
-              <MappingFragment StoreEntitySet="Technical_Specification">
-                <ScalarProperty Name="TS_Max" ColumnName="TS_Max" />
-                <ScalarProperty Name="TS_Min" ColumnName="TS_Min" />
-                <ScalarProperty Name="Tech_Spec_Value" ColumnName="Tech_Spec_Value" />
-                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
-                <ScalarProperty Name="Tech_Spec_Name" ColumnName="Tech_Spec_Name" />
-                <ScalarProperty Name="Tech_Spec_ID" ColumnName="Tech_Spec_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Technical_Specification_Tag">
             <EntityTypeMapping TypeName="ProjectDatabaseANPModel.Technical_Specification_Tag">
               <MappingFragment StoreEntitySet="Technical_Specification_Tag">
@@ -860,6 +831,32 @@
                 <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
                 <ScalarProperty Name="Document_Path" ColumnName="Document_Path" />
                 <ScalarProperty Name="Document_ID" ColumnName="Document_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="ProjectDatabaseANPModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Product_Detail" ColumnName="Product_Detail" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Series" ColumnName="Series" />
+                <ScalarProperty Name="Sales_ID" ColumnName="Sales_ID" />
+                <ScalarProperty Name="Document_ID" ColumnName="Document_ID" />
+                <ScalarProperty Name="Product_Image" ColumnName="Product_Image" />
+                <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
+                <ScalarProperty Name="SubCategory_ID" ColumnName="SubCategory_ID" />
+                <ScalarProperty Name="Manufacturer_ID" ColumnName="Manufacturer_ID" />
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Technical_Specification">
+            <EntityTypeMapping TypeName="ProjectDatabaseANPModel.Technical_Specification">
+              <MappingFragment StoreEntitySet="Technical_Specification">
+                <ScalarProperty Name="Tech_Spec_Value" ColumnName="Tech_Spec_Value" />
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+                <ScalarProperty Name="Tech_Spec_Name" ColumnName="Tech_Spec_Name" />
+                <ScalarProperty Name="Tech_Spec_ID" ColumnName="Tech_Spec_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
