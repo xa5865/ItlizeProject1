@@ -14,16 +14,10 @@ namespace ItlizeProject1.Models
     
     public partial class Document
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Document()
-        {
-            this.Products = new HashSet<Product>();
-        }
-    
         public int Document_ID { get; set; }
         public string Document_Path { get; set; }
+        public int Product_ID { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

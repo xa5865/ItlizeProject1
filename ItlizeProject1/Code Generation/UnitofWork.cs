@@ -51,6 +51,11 @@ public class UnitOfWork : IUnitOfWork
         get { return new PropertyTagRepository(_context); }
     }
 
+    public IPropertyTagOptionRepository Property_Tag_Options
+    {
+        get { return new PropertyTagOptionRepository(_context); }
+    }
+
     public ITechnicalSpecificationRepository Technical_Specifications
     {
         get { return new TechnicalSpecificationRepository(_context); }
@@ -84,11 +89,6 @@ public class UnitOfWork : IUnitOfWork
     public IUserRepository Users
     {
         get { return new UserRepository(_context); }
-    }
-
-    public IPropertyTagOptionRepository Property_Tag_Options
-    {
-        get { return new PropertyTagOptionRepository(_context); }
     }
 
     
