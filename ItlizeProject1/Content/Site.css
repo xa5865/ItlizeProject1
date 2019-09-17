@@ -97,6 +97,7 @@ h3 {
 .table1 {
     display: inline-block;
     vertical-align: text-top;
+    width: 500px;
 }
 
 .table1 th {
@@ -108,7 +109,7 @@ h3 {
 }
 
 .Phead {
-        border-style: solid none;
+    border-style: solid none;
 }
 
 table label {
@@ -116,5 +117,12 @@ table label {
 }
 
 .Plabel {
-    background-color: #f9f9f9;
+    background-color: #dee2e6;
+    width: 200px;
+}
+
+.document {
+    display: inline-block;
+    width:500px;
+
 }

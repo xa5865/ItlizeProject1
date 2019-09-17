@@ -47,20 +47,7 @@
                 {
             <tr>
                 <td class="Plabel">@Html.DisplayFor(x => item.Tech_Spec_Name)</td>
-                @if (item.Tech_Spec_Value != null)
-                {
-                    <td>@Html.DisplayFor(x => item.Tech_Spec_Value)</td>
-                }
-                @if (item.TS_Min != null)
-                {
-                    <td class="Plabel">@Html.Label("Min")</td>
-                    <td>@Html.DisplayFor(x => item.TS_Min)</td>
-                }
-                @if (item.TS_Max != null)
-                {
-                    <td class="Plabel">@Html.Label("Max")</td>
-                    <td>@Html.DisplayFor(x => item.TS_Max)</td>
-                }
+                <td>@Html.DisplayFor(x => item.Tech_Spec_Value)</td>
             </tr>
                 }
             </table>
@@ -68,16 +55,22 @@
         <div id="Details" class="container tab-pane fade">
             <br>
             <h3>Product Details</h3>
-            <table class="table2">
+            @{ 
+                char[] chs = { ' ' };
+                string[] Details = Model.Pdt.Product_Detail.Split(chs, options: StringSplitOptions.RemoveEmptyEntries);
+            }
+        <table class="table2 table table-striped">
+                @foreach (var item in Details)
+                {
                 <tr>
-                    <td></td>
+                    <td>@Html.DisplayFor(x => item)</td>
                 </tr>
-            </table>
+                }
+        </table>
         </div>
         <div id="Documentation" class="container tab-pane fade">
             <br>
             <h3>Product Documentation</h3>
-            <table class="table1">
                 @foreach (var item in Model.documents)
                 {
                     var a = item.Document_Path.Substring(item.Document_Path.Length - 3);
@@ -85,11 +78,8 @@
                     var c = "../image/" + a + ".png";
                     var d = b + "(" + a + ")";
                     var e = "../Document/" + item.Document_Path;
-                    <tr>
-                        <td><img src=@c> <a href=@e>@d</a></td>
-                    </tr>
+                    <div class="document"><img src=@c> <a href=@e >@d</a></div>
                 }
-            </table>
         </div>
         <div id="Contact" class="container tab-pane fade">
             <br>

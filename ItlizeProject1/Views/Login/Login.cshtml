@@ -24,7 +24,7 @@
 </head>
 <body>
     <div class="loginin" align="center">
-        @using (Ajax.BeginForm("Submit", "Login", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, OnSuccess = "showalert()" }))
+        @using (Ajax.BeginForm("Submit", "Login", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace}))
         {
             
             @Html.TextBoxFor(x => x.L1.Username, new { placeholder = "Username or Email" })
