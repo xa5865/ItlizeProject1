@@ -28,7 +28,6 @@
           </Key>
           <Property Name="Document_ID" Type="int" Nullable="false" />
           <Property Name="Document_Path" Type="nvarchar" MaxLength="50" />
-          <Property Name="Product_ID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Manufacturer">
           <Key>
@@ -138,18 +137,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Document_Product">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="Document" Type="Self.Document" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Product_ID" />
-            </Principal>
-            <Dependent Role="Document">
-              <PropertyRef Name="Product_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Manufacturer_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Manufacturer" Type="Self.Manufacturer" Multiplicity="*" />
@@ -159,6 +146,18 @@
             </Principal>
             <Dependent Role="Manufacturer">
               <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Document">
+          <End Role="Document" Type="Self.Document" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Document">
+              <PropertyRef Name="Document_ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Document_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -300,13 +299,13 @@
             <End Role="Manufacturer" EntitySet="Manufacturer" />
             <End Role="Department" EntitySet="Department" />
           </AssociationSet>
-          <AssociationSet Name="FK_Document_Product" Association="Self.FK_Document_Product">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="Document" EntitySet="Document" />
-          </AssociationSet>
           <AssociationSet Name="FK_Manufacturer_User" Association="Self.FK_Manufacturer_User">
             <End Role="User" EntitySet="User" />
             <End Role="Manufacturer" EntitySet="Manufacturer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Document" Association="Self.FK_Product_Document">
+            <End Role="Document" EntitySet="Document" />
+            <End Role="Product" EntitySet="Product" />
           </AssociationSet>
           <AssociationSet Name="FK_Product_Manufacturer" Association="Self.FK_Product_Manufacturer">
             <End Role="Manufacturer" EntitySet="Manufacturer" />
@@ -400,8 +399,8 @@
           <NavigationProperty Name="Sale" Relationship="Self.FK_Product_Sales" FromRole="Product" ToRole="Sales" />
           <NavigationProperty Name="SubCategory" Relationship="Self.FK_Product_SubCategory" FromRole="Product" ToRole="SubCategory" />
           <NavigationProperty Name="Properties" Relationship="Self.FK_Property_Product" FromRole="Product" ToRole="Property" />
+          <NavigationProperty Name="Document" Relationship="ProjectDatabaseANPModel.FK_Product_Document" FromRole="Product" ToRole="Document" />
           <NavigationProperty Name="Technical_Specification" Relationship="ProjectDatabaseANPModel.FK_Technical_Specification_Product" FromRole="Product" ToRole="Technical_Specification" />
-          <NavigationProperty Name="Documents" Relationship="ProjectDatabaseANPModel.FK_Document_Product" FromRole="Product" ToRole="Document" />
         </EntityType>
         <EntityType Name="Property">
           <Key>
@@ -575,6 +574,11 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Sale" EntitySet="Sales" />
           </AssociationSet>
+          <EntitySet Name="Documents" EntityType="ProjectDatabaseANPModel.Document" />
+          <AssociationSet Name="FK_Product_Document" Association="ProjectDatabaseANPModel.FK_Product_Document">
+            <End Role="Document" EntitySet="Documents" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
           <EntitySet Name="Technical_Specification" EntityType="ProjectDatabaseANPModel.Technical_Specification" />
           <EntitySet Name="Technical_Specification_Tag" EntityType="ProjectDatabaseANPModel.Technical_Specification_Tag" />
           <AssociationSet Name="FK_Technical_Specification_Product" Association="ProjectDatabaseANPModel.FK_Technical_Specification_Product">
@@ -589,11 +593,6 @@
           <AssociationSet Name="FK_Property_Tag_Option_Property_Tag" Association="ProjectDatabaseANPModel.FK_Property_Tag_Option_Property_Tag">
             <End Role="Property_Tag" EntitySet="Property_Tag" />
             <End Role="Property_Tag_Option" EntitySet="Property_Tag_Option" />
-          </AssociationSet>
-          <EntitySet Name="Documents" EntityType="ProjectDatabaseANPModel.Document" />
-          <AssociationSet Name="FK_Document_Product" Association="ProjectDatabaseANPModel.FK_Document_Product">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="Document" EntitySet="Documents" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="User">
@@ -631,6 +630,26 @@
             </Principal>
             <Dependent Role="Sale">
               <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="Document_ID" />
+          </Key>
+          <Property Name="Document_ID" Type="Int32" Nullable="false" />
+          <Property Name="Document_Path" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Products" Relationship="ProjectDatabaseANPModel.FK_Product_Document" FromRole="Document" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_Product_Document">
+          <End Type="ProjectDatabaseANPModel.Document" Role="Document" Multiplicity="1" />
+          <End Type="ProjectDatabaseANPModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Document">
+              <PropertyRef Name="Document_ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Document_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -699,27 +718,6 @@
             </Principal>
             <Dependent Role="Property_Tag_Option">
               <PropertyRef Name="Property_Tag_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Document">
-          <Key>
-            <PropertyRef Name="Document_ID" />
-          </Key>
-          <Property Name="Document_ID" Type="Int32" Nullable="false" />
-          <Property Name="Document_Path" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Product_ID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Product" Relationship="ProjectDatabaseANPModel.FK_Document_Product" FromRole="Document" ToRole="Product" />
-        </EntityType>
-        <Association Name="FK_Document_Product">
-          <End Type="ProjectDatabaseANPModel.Product" Role="Product" Multiplicity="1" />
-          <End Type="ProjectDatabaseANPModel.Document" Role="Document" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Product_ID" />
-            </Principal>
-            <Dependent Role="Document">
-              <PropertyRef Name="Product_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -822,6 +820,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Documents">
+            <EntityTypeMapping TypeName="ProjectDatabaseANPModel.Document">
+              <MappingFragment StoreEntitySet="Document">
+                <ScalarProperty Name="Document_Path" ColumnName="Document_Path" />
+                <ScalarProperty Name="Document_ID" ColumnName="Document_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Technical_Specification">
             <EntityTypeMapping TypeName="ProjectDatabaseANPModel.Technical_Specification">
               <MappingFragment StoreEntitySet="Technical_Specification">
@@ -851,15 +857,6 @@
                 <ScalarProperty Name="Property_Tag_ID" ColumnName="Property_Tag_ID" />
                 <ScalarProperty Name="Property_Tag_Option_Name" ColumnName="Property_Tag_Option_Name" />
                 <ScalarProperty Name="Property_Tag_Option_ID" ColumnName="Property_Tag_Option_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Documents">
-            <EntityTypeMapping TypeName="ProjectDatabaseANPModel.Document">
-              <MappingFragment StoreEntitySet="Document">
-                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
-                <ScalarProperty Name="Document_Path" ColumnName="Document_Path" />
-                <ScalarProperty Name="Document_ID" ColumnName="Document_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
