@@ -6,7 +6,6 @@
 
 @model ItlizeProject1.ViewModel.UserData
 
-@Scripts.Render("~/Content/change-pic.js")
 
 <!DOCTYPE html>
 
@@ -15,19 +14,14 @@
     <meta name="viewport" content="width=device-width" />
     <title>Login</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
 </head>
 <body>
     <div class="loginin" align="center">
-        @using (Ajax.BeginForm("Submit", "Login", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace}))
+        @using (Ajax.BeginForm("Submit", "Login", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace }))
         {
-            
-            @Html.TextBoxFor(x => x.L1.Username, new { placeholder = "Username or Email" })
+            @Html.AntiForgeryToken()
+            @Html.TextBoxFor(x => x.L1.Username, new { placeholder = "User id or Email" })
             <span class="glyphicon glyphicon-user"></span><br />
             <div class="warning">@Html.ValidationMessageFor(x => x.L1.Username)<br /></div>
             @Html.PasswordFor(x => x.L1.Password, new { placeholder = "Password" })
@@ -35,9 +29,9 @@
             <div class="warning">@Html.ValidationMessageFor(x => x.L1.Password)<br /></div>
             @Html.DisplayFor(x => x.L1.Message)<br />
             @Html.RadioButton("submit1", "Log in", true, new { type = "submit" })
-            }
-            @Html.DisplayFor(x => x.Nw1.Message)
-        </div>
+        }
+        @Html.DisplayFor(x => x.Nw1.Message)
+    </div>
     <div>
 
     </div>
@@ -59,6 +53,7 @@
 
             @using (Ajax.BeginForm("Submit2", "Login", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace }, new { enctype = "multipart/form-data" }))
             {
+                @Html.AntiForgeryToken()
                 <div class="modal-body">
                     <table>
                         <tr><td></td><td>@Html.Label("ImagePreview", "Image Preview")</td></tr>
@@ -66,11 +61,12 @@
                         <tr><td></td><td><input type="file" name="file1" accept="image/*" onchange="loadFile(event)" /></td></tr>
                         <tr><td></td><td>@Html.Label("ProfilePic", "Your Profile Pic")</td></tr>
                         <tr>
-                            <td>@Html.Label("usernamelb2", "UserName:")</td>
+                            <td>@Html.Label("usernamelb2", "User Id:")</td>
                             <td> @Html.TextBoxFor(x => x.Nw1.Username2, new { placeholder = "User Name" })</td>
                         </tr>
                         <tr>
-                            <td></td><td><div class="warning">@Html.ValidationMessageFor(x => x.Nw1.Username2)</div></td>
+                            <td></td>
+                            <td><div class="warning">@Html.ValidationMessageFor(x => x.Nw1.Username2)</div></td>
                         </tr>
                         <tr>
                         <tr>
@@ -78,14 +74,16 @@
                             <td>@Html.TextBoxFor(x => x.Nw1.Name1, new { placeholder = "LastName" })</td>
                         </tr>
                         <tr>
-                            <td></td><td><div class="warning">@Html.ValidationMessageFor(x => x.Nw1.Name2)</div></td>
+                            <td></td>
+                            <td><div class="warning">@Html.ValidationMessageFor(x => x.Nw1.Name2)</div></td>
                         </tr>
                         <tr>
                             <td>@Html.Label("usernamelbf", "FirstName:")</td>
                             <td>@Html.TextBoxFor(x => x.Nw1.Name2, new { placeholder = "FirstName" })</td>
                         </tr>
                         <tr>
-                            <td></td><td><div class="warning">@Html.ValidationMessageFor(x => x.Nw1.Name1)</div></td>
+                            <td></td>
+                            <td><div class="warning">@Html.ValidationMessageFor(x => x.Nw1.Name1)</div></td>
                         </tr>
                         <tr>
                         <tr>
@@ -93,7 +91,8 @@
                             <td>@Html.TextBoxFor(x => x.Nw1.Email1, new { placeholder = "Email Id" })</td>
                         </tr>
                         <tr>
-                            <td></td><td><div class="warning">@Html.ValidationMessageFor(x => x.Nw1.Email1)</div></td>
+                            <td></td>
+                            <td><div class="warning">@Html.ValidationMessageFor(x => x.Nw1.Email1)</div></td>
                         </tr>
                         <tr>
                         <tr>
@@ -101,7 +100,8 @@
                             <td>@Html.TextBoxFor(x => x.Nw1.Phone1, new { placeholder = "Phone Number" })</td>
                         </tr>
                         <tr>
-                            <td></td><td><div class="warning">@Html.ValidationMessageFor(x => x.Nw1.Phone1)</div></td>
+                            <td></td>
+                            <td><div class="warning">@Html.ValidationMessageFor(x => x.Nw1.Phone1)</div></td>
                         </tr>
                         <tr>
                         <tr>
@@ -109,14 +109,16 @@
                             <td>@Html.PasswordFor(x => x.Nw1.Password2, new { placeholder = "Password" })
                         </tr>
                         <tr>
-                            <td></td><td><div class="warning">@Html.ValidationMessageFor(x => x.Nw1.Password2)</div></td>
+                            <td></td>
+                            <td><div class="warning">@Html.ValidationMessageFor(x => x.Nw1.Password2)</div></td>
                         </tr>
                         <tr>
                             <td>@Html.Label("passwordlb3", "Confrim Password:")</td>
                             <td>@Html.PasswordFor(x => x.Nw1.Password3, new { placeholder = "Password" })
                         </tr>
                         <tr>
-                            <td></td><td><div class="warning">@Html.ValidationMessageFor(x => x.Nw1.Password3)</div></td>
+                            <td></td>
+                            <td><div class="warning">@Html.ValidationMessageFor(x => x.Nw1.Password3)</div></td>
                         </tr>
 
                     </table>
@@ -130,4 +132,8 @@
     </div>
 </div>
 
-
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+@Scripts.Render("~/Content/change-pic.js")

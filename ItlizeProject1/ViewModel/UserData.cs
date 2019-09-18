@@ -9,6 +9,7 @@ namespace ItlizeProject1.ViewModel
 {
     public class UserData
     {
+
         public Login L1 { get; set; }
         public NewUser Nw1 { get; set; }
 

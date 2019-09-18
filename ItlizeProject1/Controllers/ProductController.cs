@@ -17,7 +17,6 @@ namespace ItlizeProject1.Controllers
         private ITechnicalSpecificationRepository technicalSpecification;
         private ISaleRepository sale;
         private IDepartmentRepository department;
-
         public ProductController()
         {
             this.manufacturer = new ManufacturerRepository(new ProjectDatabaseANPEntities());
@@ -29,23 +28,29 @@ namespace ItlizeProject1.Controllers
             this.department = new DepartmentRepository(new ProjectDatabaseANPEntities());
         }
         // GET: Product
-        public ActionResult Product()
-        {
 
-            ProductSummary ps1 = new ProductSummary
+        [OutputCache(Duration = 600)]
+        public ActionResult Product(int id)
+        {
+            if (Session["username"] != null)
             {
-                productid = 1
-            };
-            ps1.Pdt = product.GetById(ps1.productid);
-            ps1.Pro = property.GetById(ps1.productid);
-            ps1.Maf = manufacturer.GetById(ps1.productid);
-            ps1.Doc = document.GetById(ps1.Pdt.Document_ID);
-            ps1.sale = sale.GetById(ps1.productid);
-            ps1.department = department.GetById(ps1.Maf.Manufacturer_ID);
-            ps1.technical_Specifications = technicalSpecification.GetAll().Where(x => x.Product_ID == ps1.productid).ToList();
-            ps1.properties = property.GetAll().Where(x => x.Product_ID == ps1.productid).ToList();
-            ps1.documents = document.GetAll().Where(x => x.Product_ID == ps1.productid).ToList();
-            return View(ps1);
+                ProductSummary ps1 = new ProductSummary
+                {
+                    productid = id
+                };
+                ps1.Pdt = product.GetById(ps1.productid);
+                ps1.Pro = property.GetById(ps1.productid);
+                ps1.Maf = manufacturer.GetById(ps1.productid);
+                ps1.Doc = document.GetById(ps1.Pdt.Document_ID);
+                ps1.sale = sale.GetById(ps1.productid);
+                ps1.department = department.GetById(ps1.Maf.Manufacturer_ID);
+                ps1.technical_Specifications = technicalSpecification.GetAll().Where(x => x.Product_ID == ps1.productid).ToList();
+                ps1.properties = property.GetAll().Where(x => x.Product_ID == ps1.productid).ToList();
+                ps1.documents = document.GetAll().Where(x => x.Product_ID == ps1.productid).ToList();
+                return View(ps1);
+            }
+            else
+                return RedirectToAction("Login", "Login");
         }
     }
 }

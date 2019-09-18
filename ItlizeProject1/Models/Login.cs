@@ -9,7 +9,7 @@ namespace ItlizeProject1.Models
     public class Login
     {
         [Required(ErrorMessage ="The user id should not be empty")]
-        [RegularExpression("^[a-zA-Z0-9_-]{1,10}$",ErrorMessage = "The user id should only contain 1 to 10 numbers ")]
+        [RegularExpression("^[a-zA-Z0-9_-_@]{1,20}$",ErrorMessage = "The user id or email should only contain 1 to 20 numbers ")]
         public string Username { get; set; }
 
         [Required(ErrorMessage = "The password should not be empty")]

@@ -25,7 +25,7 @@
     <div class="tab-content">
         <div id="Summary" class="container tab-pane active">
             <br>
-            <h3>Product Summary</h3>
+            <h3>Product Summary-@Model.Pdt.Product_Name </h3>
             <table class="table1">
                 <tr class="Phead"><th colspan="2"> @Html.Label("DESCRIPTION")</th></tr>
                 <tr><td class="Plabel">@Html.Label("Manufacturer")</td><td>@Html.DisplayFor(x => x.Pdt.Manufacturer_ID)</td></tr>
@@ -54,9 +54,9 @@
         </div>
         <div id="Details" class="container tab-pane fade">
             <br>
-            <h3>Product Details</h3>
+            <h3>Product Details-@Model.Pdt.Product_Name </h3>
             @{ 
-                char[] chs = { ' ' };
+                char[] chs = { '/' };
                 string[] Details = Model.Pdt.Product_Detail.Split(chs, options: StringSplitOptions.RemoveEmptyEntries);
             }
         <table class="table2 table table-striped">
@@ -70,20 +70,20 @@
         </div>
         <div id="Documentation" class="container tab-pane fade">
             <br>
-            <h3>Product Documentation</h3>
+            <h3>Product Documentation-@Model.Pdt.Product_Name </h3>
                 @foreach (var item in Model.documents)
                 {
                     var a = item.Document_Path.Substring(item.Document_Path.Length - 3);
                     var b = item.Document_Path.Substring(0, item.Document_Path.Length - 4);
-                    var c = "../image/" + a + ".png";
+                    var c = "../../image/" + a + ".png";
                     var d = b + "(" + a + ")";
                     var e = "../Document/" + item.Document_Path;
-                    <div class="document"><img src=@c> <a href=@e >@d</a></div>
+                    <div class="document"><img src="@c"  onerror="this.src='../../image/unknown.png'" alt="type"> <a href=@e >@d</a></div>
                 }
         </div>
         <div id="Contact" class="container tab-pane fade">
             <br>
-            <h3>Contact</h3>
+            <h3>Contact-@Model.Pdt.Product_Name </h3>
             <table class="table1">
                 <tr class="Phead"><th colspan="2">@Html.Label("SALES REPRESENTATIVE")</th></tr>
                 <tr>

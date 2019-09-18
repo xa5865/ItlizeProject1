@@ -243,6 +243,7 @@
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SearchResultController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\_LayoutController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -324,9 +325,13 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="image\a.jpg" />
     <Content Include="image\doc.png" />
     <Content Include="image\grey.jpg" />
     <Content Include="image\logo.png" />
+    <Content Include="image\pdf.png" />
+    <Content Include="image\rvt.png" />
+    <Content Include="image\unknown.png" />
     <Content Include="image\user.png" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -419,9 +424,11 @@
     <Content Include="Views\Product\Product.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\SearchResult\SearchResult.cshtml" />
+    <Content Include="Views\Product\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\_Layout\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
