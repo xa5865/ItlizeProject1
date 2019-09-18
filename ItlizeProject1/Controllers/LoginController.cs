@@ -38,7 +38,7 @@ namespace ItlizeProject1.Controllers
             else
             {
                 //search
-                return RedirectToAction("Product", "Product", new { id = 1 });
+                return RedirectToAction("Search", "Search");
             }
 
         }
@@ -56,7 +56,8 @@ namespace ItlizeProject1.Controllers
                 {
                     users = Iuser.GetAll().Where(x => x.User_Email == obj.L1.Username).ToList();
                 }
-                if (users == null) { 
+                if ((users == null) || (users.Count == 0))
+                {
                     obj.L1.Message = "Account is not valid";
                     return View("login", obj);
                 }
@@ -66,8 +67,8 @@ namespace ItlizeProject1.Controllers
                     Response.Cookies["password"].Value = obj.L1.Password;
                     Session["username"] = users[0].User_ID;
                     Session["pic"] = users[0].User_Avatar;
-                    //return RedirectToAction("Search", "Search");
-                    return RedirectToAction("Product", "Product",new {id = 1 });
+                    return RedirectToAction("Search", "Search");
+                    // return RedirectToAction("Product", "Product",new {id = 1 });
                 }
                 else
                 {
