@@ -328,6 +328,10 @@
     <Content Include="image\a.jpg" />
     <Content Include="image\doc.png" />
     <Content Include="image\grey.jpg" />
+    <Content Include="image\j1.gif" />
+    <Content Include="image\j2.gif" />
+    <Content Include="image\j3.gif" />
+    <Content Include="image\j4.gif" />
     <Content Include="image\logo.png" />
     <Content Include="image\pdf.png" />
     <Content Include="image\rvt.png" />

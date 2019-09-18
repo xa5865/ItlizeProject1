@@ -1,16 +1,55 @@
 ﻿
 @using ItlizeProject1.Models
 @model ItlizeProject1.ViewModel.SearchResultVM
+@{
+    ViewBag.Title = "bootstrap";
+}
 
 <html>
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <meta name="viewport" content="width=device-width" />
     <title>View</title>
     <style>
+        td {
+            border: 2px solid black;
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .detail_div {
+            text-align: center;
+        }
+
+        .brand_label {
+            margin-left: 40px;
+            margin-right: 10px;
+        }
+
+        .brand_options {
+            display: inline;
+            vertical-align: center;
+        }
+
+        .div_two_inputs {
+            text-align: center;
+        }
+
+        p {
+            text-align: center;
+            align-items: center;
+        }
+
+        .min_max_input {
+            width: 50px;
+        }
+
         #mainbody {
             width: 100%;
             height: 100%;
@@ -71,14 +110,14 @@
 </head>
 <body>
     <div>
-        <div id="mainbody" class="row" style="margin-top: 80px; border: 1px solid black">
+        <div id="mainbody" class="row" style="border: 1px solid ghostwhite; margin-top: 100px ">
 
-            <div id="filter_left_container" class="col-3">
+            <div id="filter_left_container" class="col-2">
                 <table id="filter_left">
                     <tr>
                         <td class="filter_td">
                             <label style="margin-left: 5px"> Search:</label>
-                            <button id="button_save" style="margin-left: 45px">
+                            <button id="button_save" style="margin-left: 35px">
                                 Save
                             </button>
                             <button id="button_clear" style="margin-left: 5px">
@@ -91,30 +130,30 @@
                             <button class="collapsible">Product Type</button>
                             <div class="content">
                                 <p>
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-sort"></i>Model Year </span>
-                                    <div class="div_two_inputs">
-                                        <input type="number" class="min_max_input search" id="model_year_min" style="width: 50px; height: 25px; margin-left: 10px">
+                                    Model Year<br />
+                                    <div class="div_two_inputs" style="text-align: center">
+                                        <input type="number" class="min_max_input search" id="model_year_min" style="width: 50px">
                                         -
-                                        <input type="number" class="min_max_input" id="model_year_max" style="width: 50px; height: 25px">
+                                        <input type="number" class="min_max_input search" id="model_year_max" style="width: 50px">
                                     </div>
                                 </p>
                                 <p>
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-sort"></i>Use Type </span>
-                                    <select id="use_type">
+                                    Use Type<br />
+                                    <select id="use_type" class="search">
                                         <option value="Commercial" class="search">Commercial</option>
                                         <option value="Industrial" class="search">Industrial</option>
                                         <option value="Residential" class="search">Residential</option>
                                     </select>
                                 </p>
                                 <p>
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-sort"></i>Application</span>
+                                    Application<br />
                                     <select id="application">
                                         <option value="Indoor" class="search">Indoor</option>
                                         <option value="Outdoor" class="search">Outdoor</option>
                                     </select>
                                 </p>
                                 <p>
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-sort"></i>Mounnting Location</span>
+                                    Mounnting Location<br />
                                     <select id="mounting_location">
                                         <option value="Roof" class="search">Roof</option>
                                         <option value="Wall" class="search">Wall</option>
@@ -122,7 +161,7 @@
                                     </select>
                                 </p>
                                 <p>
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-sort"></i>Accessories</span>
+                                    Accessories<br />
                                     <select id="accessories">
                                         <option value="With light" class="search">With light</option>
                                         <option value="Without light" class="search">Without light</option>
@@ -206,33 +245,292 @@
                             <button class="collapsible">Brand</button>
                             <div class="content">
                                 <div id="brand_options">
-                                    <input type="checkbox" class="brand_options search" value="Samsung" />Samsung<br />
-                                    <input type="checkbox" class="brand_options search" value="Sony" />Sony<br />
-                                    <input type="checkbox" class="brand_options search" value="ACDC" />ACDC<br />
-                                    <input type="checkbox" class="brand_options search" value="Disney" />Samsung<br />
+                                    <label class="brand_label">Samsung</label><input type="checkbox" class="brand_options search" value="Samsung" /><br />
+                                    <label class="brand_label">Sony</label><input type="checkbox" class="brand_options search" value="Sony" /><br />
+                                    <label class="brand_label">ACDC</label><input type="checkbox" class="brand_options search" value="ACDC" /><br />
+                                    <label class="brand_label">Disney</label><input type="checkbox" class="brand_options search" value="Disney" /><br />
                                 </div>
                             </div>
                         </td>
                     </tr>
                 </table>
             </div>
-            <div id="search_result" class="col-9" style="display: inline-block; border: 1px solid black">
+            <div id="search_result" class="col-10" style="display: inline-block; border: 1px solid black">
+
+                <!-- Button to trigger modal -->
+                <div>
+                    <a href="#myModal" role="button" class="btn btn-success" data-toggle="modal" style="margin-left: 30px" onclick="onclick_event()"><label>I SUPER WANNA COMPARE!</label></a>
+                </div>
+
+                <!-- Modal -->
+                <div id="myModal" class="modal hide" tabindex="-1" role="dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Product Comparison</h3>
+                        </div>
+
+                        <div class="modal-body">
+
+                            <table>
+                                <tr>
+                                    <td></td>
+                                    @foreach (Product p in Model.Products)
+                                    {
+                                        <td class="@p.Product_ID"><img src="~/image/@p.Product_Image" style="width:250px;height:200px;" /></td>
+                                    }
+                                </tr>
+                                <tr bgcolor="#FF0000">
+                                    <td>
+                                        <label>DESCRIPTION</label>
+                                    </td>
+                                    @foreach (Product p in Model.Products)
+                                    {
+                                        <td class="@p.Product_ID">@p.Product_Name</td>
+                                    }
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Brand</label>
+                                    </td>
+                                    @foreach (Product p in Model.Products)
+                                    {
+                                        foreach (Property pp in Model.Properties)
+                                        {
+                                            if (p.Product_ID == pp.Product_ID && pp.Property_Name == "Brand")
+                                            {
+                                                <td class="@p.Product_ID">@pp.Property_Value</td>
+                                            }
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Series</label>
+                                    </td>
+                                    @foreach (Product p in Model.Products)
+                                    {
+                                        <td class="@p.Product_ID">@p.Series</td>
+                                    }
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Model</label>
+                                    </td>
+                                    @foreach (Product p in Model.Products)
+                                    {
+                                        <td class="@p.Product_ID">@p.Model</td>
+                                    }
+                                </tr>
+                                <tr bgcolor="#FF0000">
+                                    <td>
+                                        <label>Type</label>
+                                    </td>
+                                    @foreach (Product p in Model.Products)
+                                    {
+                                        <td class="@p.Product_ID"></td>
+                                    }
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Use Type</label>
+                                    </td>
+                                    @foreach (Product p in Model.Products)
+                                    {
+                                        foreach (Property pp in Model.Properties)
+                                        {
+                                            if (p.Product_ID == pp.Product_ID && pp.Property_Name == "Use Type")
+                                            {
+                                                <td class="@p.Product_ID">@pp.Property_Value</td>
+                                            }
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Application</label>
+                                    </td>
+                                    @foreach (Product p in Model.Products)
+                                    {
+                                        foreach (Property pp in Model.Properties)
+                                        {
+                                            if (p.Product_ID == pp.Product_ID && pp.Property_Name == "Application")
+                                            {
+                                                <td class="@p.Product_ID">@pp.Property_Value</td>
+                                            }
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Mounting Location</label>
+                                    </td>
+                                    @foreach (Product p in Model.Products)
+                                    {
+                                        foreach (Property pp in Model.Properties)
+                                        {
+                                            if (p.Product_ID == pp.Product_ID && pp.Property_Name == "Mounting Location")
+                                            {
+                                                <td class="@p.Product_ID">@pp.Property_Value</td>
+                                            }
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Accessories</label>
+                                    </td>
+                                    @foreach (Product p in Model.Products)
+                                    {
+                                        foreach (Property pp in Model.Properties)
+                                        {
+                                            if (p.Product_ID == pp.Product_ID && pp.Property_Name == "Accessories")
+                                            {
+                                                <td class="@p.Product_ID">@pp.Property_Value</td>
+                                            }
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Model Year</label>
+                                    </td>
+                                    @foreach (Product p in Model.Products)
+                                    {
+                                        foreach (Property pp in Model.Properties)
+                                        {
+                                            if (p.Product_ID == pp.Product_ID && pp.Property_Name == "Model Year")
+                                            {
+                                                <td class="@p.Product_ID">@pp.Property_Value</td>
+                                            }
+                                        }
+                                    }
+                                </tr>
+                                <tr bgcolor="#FF0000">
+                                    <td>
+                                        <label>Technical Specifications</label>
+                                    </td>
+                                    @foreach (Product p in Model.Products)
+                                    {
+                                        <td class="@p.Product_ID"></td>
+                                    }
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Air Flow (CFM)</label>
+                                    </td>
+                                    @foreach (Product p in Model.Products)
+                                    {
+                                        foreach (Technical_Specification ts in Model.TechnicalSpecifications)
+                                        {
+                                            if (p.Product_ID == ts.Product_ID && ts.Tech_Spec_Name == "Air Flow (CFM)")
+                                            {
+                                                <td class="@p.Product_ID">@ts.Tech_Spec_Value</td>
+                                            }
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>MAX Power (W)</label>
+                                    </td>
+                                    @foreach (Product p in Model.Products)
+                                    {
+                                        foreach (Technical_Specification ts in Model.TechnicalSpecifications)
+                                        {
+                                            if (p.Product_ID == ts.Product_ID && ts.Tech_Spec_Name == "MAX Power (W)")
+                                            {
+                                                <td class="@p.Product_ID">@ts.Tech_Spec_Value</td>
+                                            }
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Max Operating Voltage (VAC)</label>
+                                    </td>
+                                    @foreach (Product p in Model.Products)
+                                    {
+                                        foreach (Technical_Specification ts in Model.TechnicalSpecifications)
+                                        {
+                                            if (p.Product_ID == ts.Product_ID && ts.Tech_Spec_Name == "Max Operating Voltage (VAC)")
+                                            {
+                                                <td class="@p.Product_ID">@ts.Tech_Spec_Value</td>
+                                            }
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Max Fan Speed (RPM)</label>
+                                    </td>
+                                    @foreach (Product p in Model.Products)
+                                    {
+                                        foreach (Technical_Specification ts in Model.TechnicalSpecifications)
+                                        {
+                                            if (p.Product_ID == ts.Product_ID && ts.Tech_Spec_Name == "Max Fan Speed (RPM)")
+                                            {
+                                                <td class="@p.Product_ID">@ts.Tech_Spec_Value</td>
+                                            }
+                                        }
+                                    }
+                                </tr>
+                            </table>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
                 <div id="result_table">
 
                     @foreach (Product p in Model.Products)
                     {
-                        <div class="search_result" style="width: 250px; border: 1px solid black; display: inline-block; margin-left: 20px; margin-top: 25px">
-                            <p>"Product ID"+@p.Product_ID</p>
-                            <p>@p.Product_Name</p>
-                            <p>@p.Model</p>
-                            <p>@p.Series</p>
-                            @foreach (Technical_Specification ts in Model.TechnicalSpecifications)
+                        <div class="search_result" style="width: 250px; border: 1px solid black; display: inline-block; margin-left: 30px; margin-top: 25px">
+                            <div class="detail_div">
+                                <img src="~/image/@p.Product_Image" style="width:250px;height:200px;" />
+                            </div><br />
+                            <div class="detail_div"><label>@p.Product_Name</label></div>
+                            <div class="detail_div"><label>Model:</label> @p.Model</div>
+                            <div class="detail_div"><label>Series: </label> @p.Series</div>
+                            @foreach (Property pp in Model.Properties)
                             {
-                                if (ts.Product_ID == p.Product_ID)
+                                if (pp.Product_ID == p.Product_ID && (pp.Property_Name == "Model Year" || pp.Property_Name == "Brand"))
                                 {
-                                    <p>@ts.Tech_Spec_Name:  @ts.Tech_Spec_Value</p>
+                                    <div class="detail_div"><label>@pp.Property_Name:</label>  <div class="@pp.Property_Name" style="display: inline-block">@pp.Property_Value</div></div>
                                 }
                             }
+                            @foreach (Technical_Specification ts in Model.TechnicalSpecifications)
+                            {
+                                if (ts.Product_ID == p.Product_ID &&
+                                    (ts.Tech_Spec_Name == "Air Flow (CFM)"
+                                     || ts.Tech_Spec_Name == "MAX Power (W)"
+                                     || ts.Tech_Spec_Name == "Max Operating Voltage (VAC)"
+                                     || ts.Tech_Spec_Name == "Max Fan Speed (RPM)"))
+                                {
+                                    <div class="detail_div"><label>@ts.Tech_Spec_Name:</label>  <div id="@ts.Tech_Spec_Name" style="display: inline-block">@ts.Tech_Spec_Value</div></div>
+                                }
+                            }
+                            <br />
+                            <div class="row">
+                                <div class="col-3">
+                                    <label>Compare</label>
+                                </div>
+                                <div class="col-2">
+                                    <input type="checkbox" class="compare_cbs" value="@p.Product_ID" style="display: inline-block" />
+                                </div>
+                                <div class="col-7" style="text-align: right; display: inline-block">
+                                    <a name="getd" href="/SearchResult/direct" type="button" class="btn btn-success" value="@p.Product_ID">Product Detail</a>
+                                </div>
+                            </div>
                         </div>
                     }
 
@@ -259,32 +557,55 @@
             });
         }
 
+        function onclick_event() {
+            $(document).ready(function () {
+                $(".compare_cbs").each(function () {
+                    if ($(this).prop("checked") == true) {
+                        var cname = $(this).val().toString();
+                        $('.' + cname).show();
+                    }
+                    else if ($(this).prop("checked") == false) {
+                        var cname = $(this).val();
+                        $('.' + cname).hide();
+                    }
+                });
+            });
+        }
+
         $(document).ready(function () {
             $(".search").keyup(function () {
-                var model_year_min = document.getElementById("model_year_min").value;
-                var model_year_max = document.getElementById("model_year_max").value;
-                var use_type = document.getElementById("use_type").options[document.getElementById("use_type").selectedIndex].value;
-                var application = document.getElementById("application").options[document.getElementById("application").selectedIndex].value;
-                var mounting_location = document.getElementById("mounting_location").options[document.getElementById("mounting_location").selectedIndex].value;
-                var accessories = document.getElementById("accessories").options[document.getElementById("accessories").selectedIndex].value;
-                var air_flow_min = document.getElementById("airflow_min").value;
-                var air_flow_max = document.getElementById("airflow_max").value;
-                var max_power_min = document.getElementById("maxpower_min").value;
-                var max_power_max = document.getElementById("maxpower_max").value;
-                var max_operating_voltage_min = document.getElementById("maxoperatingvoltage_min").value;
-                var max_operating_voltage_max = document.getElementById("maxoperatingvoltage_max").value;
-                var max_fun_speed_min = document.getElementById("maxfunspeed_min").value;
-                var max_fun_speed_max = document.getElementById("maxfunspeed_max").value;
-                var number_of_fun_speed_min = document.getElementById("numberoffunsppeds_min").value;
-                var number_of_fun_speed_max = document.getElementById("numberoffunsppeds_max").value;
-                var sound_at_max_speed_min = document.getElementById("soundatmaxspeed_min").value;
-                var sound_at_max_speed_max = document.getElementById("soundatmaxspeed_max").value;
-                var fun_sweep_diameter_min = document.getElementById("funsweepdiameter_min").value;
-                var fun_sweep_diameter_max = document.getElementById("funsweepdiameter_max").value;
-                var height_min = document.getElementById("height_min").value;
-                var height_max = document.getElementById("height_max").value;
-                var weight_min = document.getElementById("weight_min").value;
-                var weight_max = document.getElementById("weight_max").value;
+                var model_year_min = Number(document.getElementById("model_year_min").value);
+                var model_year_max = Number(document.getElementById("model_year_max").value);
+
+                var air_flow_min = Number(document.getElementById("airflow_min").value);
+                var air_flow_max = Number(document.getElementById("airflow_max").value);
+                var max_power_min = Number(document.getElementById("maxpower_min").value);
+                var max_power_max = Number(document.getElementById("maxpower_max").value);
+                var max_operating_voltage_min = Number(document.getElementById("maxoperatingvoltage_min").value);
+                var max_operating_voltage_max = Number(document.getElementById("maxoperatingvoltage_max").value);
+                var max_fun_speed_min = Number(document.getElementById("maxfunspeed_min").value);
+                var max_fun_speed_max = Number(document.getElementById("maxfunspeed_max").value);
+
+
+                $('.search_result').each(function () {
+                    var detail = Array.from($(this).find(".detail_div"));
+                    var model_year = Number(detail[4].childNodes[2].innerText);
+                    var air_flow = Number(detail[6].childNodes[2].innerText);
+                    var max_power = Number(detail[7].childNodes[2].innerText);
+                    var max_operating_voltage = Number(detail[8].childNodes[2].innerText);
+                    var max_fun_speed = Number(detail[9].childNodes[2].innerText);
+
+                    if ((model_year_max == 0 || model_year <= model_year_max) && (model_year_min == 0 || model_year >= model_year_min)
+                        && (air_flow_max == 0 || air_flow <= air_flow_max) && (air_flow_min == 0 || air_flow >= air_flow_min)
+                        && (max_power_max == 0 || max_power <= max_power_max) && (max_power_min == 0 || max_power >= max_power_min)
+                        && (max_operating_voltage_max == 0 || max_operating_voltage <= max_operating_voltage_max) && (max_operating_voltage_min == 0 || max_operating_voltage >= max_operating_voltage_min)
+                        && (max_fun_speed_max == 0 || max_fun_speed <= max_fun_speed_max) && (max_fun_speed_min == 0 || max_fun_speed >= max_fun_speed_min)
+                    ) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
             });
         });
     </script>

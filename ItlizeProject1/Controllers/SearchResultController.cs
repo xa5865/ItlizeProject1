@@ -42,5 +42,10 @@ namespace ItlizeProject1.Controllers
             srvm.Products = Iproduct.GetAll().ToList();
             return View(srvm);
         }
+
+        public ActionResult direct()
+        {
+            return RedirectToAction("Product", "Product", new { id = 1 });
+        }
     }
 }
