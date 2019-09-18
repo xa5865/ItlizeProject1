@@ -44,7 +44,7 @@ namespace ItlizeProject1.Controllers
             string category = Request.Form["SelectedCat"];
             string subcategory = Request.Form["SelectedSub"];
 
-            return RedirectToAction("Product","Product");
+            return RedirectToAction("SearchResult", "SearchResult");
         }
 
        
