@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ItlizeProject1.Models;
+using ItlizeProject1.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +12,8 @@ namespace ItlizeProject1.Controllers
     {
         public ActionResult Index()
         {
+           
+
             return View();
         }
 

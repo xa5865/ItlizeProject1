@@ -1,30 +1,42 @@
-﻿<div class="searchbar">
-    <form action="">
+﻿@model ItlizeProject1.ViewModel.SearchBarVM
+
+
+<div class="searchbar">
+
+    @using (Html.BeginForm("Submit", "_SearchBar", FormMethod.Post))
+    {
         <div class="row">
             <div class="col-lg-3 d-flex align-items-center form-group">
-                <select type="button" class="btn dropdown-toggle form-control" data-toggle="dropdown" role="button">
-                    <option>Categories</option>
-                    <option value="">electronic</option>
-                    <option value="">beauty</option>
-                    <option value="">forniture</option>
-                    <option value="">game</option>
+                <select type="button" class="btn dropdown-toggle form-control" data-toggle="dropdown" role="button" name="SelectedCat" id="SelectedCat">
+                    <option value="">Categories</option>
+                    @foreach (var cate in Model.cat)
+                    {
+                        <option value="@cate.Category_ID" name="@cate.Category_Name">@cate.Category_Name</option>
+
+                    }
                 </select>
             </div>
 
             <div class="col-lg-7 d-flex align-items-center form-group">
-                <input list="selectSubCategory" class="form-control" />
+                <input list="selectSubCategory" class="form-control" name="SelectedSub" />
                 <datalist id="selectSubCategory">
-                    <option value="Fan"></option>
-                    <option value="Vaccum"></option>
-                    <option value="frige"></option>
-                    <option value="Steam"></option>
+                    @foreach (var sub in Model.sub)
+                    {
+                        <option value="@sub.SubCategory_Name" name="@sub.SubCategory_ID" class="@sub.Category_ID"></option>
+                    }
                 </datalist>
             </div>
 
             <div class="col-lg-2">
                 <button type="submit" class="btn btn-link btn-block">Search</button>
             </div>
+        </div>}
 
-        </div>
-    </form>
 </div>
+
+
+
+
+
+
+   
