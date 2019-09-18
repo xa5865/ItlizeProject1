@@ -45,41 +45,41 @@
                 <tr class="Phead"><th colspan="5">@Html.Label("TECHNICAL SPECIFICATIONS")</th></tr>
                 @foreach (var item in Model.technical_Specifications)
                 {
-            <tr>
-                <td class="Plabel">@Html.DisplayFor(x => item.Tech_Spec_Name)</td>
-                <td>@Html.DisplayFor(x => item.Tech_Spec_Value)</td>
-            </tr>
+                    <tr>
+                        <td class="Plabel">@Html.DisplayFor(x => item.Tech_Spec_Name)</td>
+                        <td>@Html.DisplayFor(x => item.Tech_Spec_Value)</td>
+                    </tr>
                 }
             </table>
         </div>
         <div id="Details" class="container tab-pane fade">
             <br>
             <h3>Product Details-@Model.Pdt.Product_Name </h3>
-            @{ 
+            @{
                 char[] chs = { '/' };
                 string[] Details = Model.Pdt.Product_Detail.Split(chs, options: StringSplitOptions.RemoveEmptyEntries);
             }
-        <table class="table2 table table-striped">
+            <table class="table2 table table-striped">
                 @foreach (var item in Details)
                 {
-                <tr>
-                    <td>@Html.DisplayFor(x => item)</td>
-                </tr>
+                    <tr>
+                        <td>@Html.DisplayFor(x => item)</td>
+                    </tr>
                 }
-        </table>
+            </table>
         </div>
         <div id="Documentation" class="container tab-pane fade">
             <br>
             <h3>Product Documentation-@Model.Pdt.Product_Name </h3>
-                @foreach (var item in Model.documents)
-                {
-                    var a = item.Document_Path.Substring(item.Document_Path.Length - 3);
-                    var b = item.Document_Path.Substring(0, item.Document_Path.Length - 4);
-                    var c = "../../image/" + a + ".png";
-                    var d = b + "(" + a + ")";
-                    var e = "../Document/" + item.Document_Path;
-                    <div class="document"><img src="@c"  onerror="this.src='../../image/unknown.png'" alt="type"> <a href=@e >@d</a></div>
-                }
+            @foreach (var item in Model.documents)
+            {
+                var a = item.Document_Path.Substring(item.Document_Path.Length - 3);
+                var b = item.Document_Path.Substring(0, item.Document_Path.Length - 4);
+                var c = "../../image/" + a + ".png";
+                var d = b + "(" + a + ")";
+                var e = "../Document/" + item.Document_Path;
+                <div class="document"><img src="@c" onerror="this.src='../../image/unknown.png'" alt="type"> <a href=@e>@d</a></div>
+            }
         </div>
         <div id="Contact" class="container tab-pane fade">
             <br>

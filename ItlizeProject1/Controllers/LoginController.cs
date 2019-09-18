@@ -130,6 +130,7 @@ namespace ItlizeProject1.Controllers
         public ActionResult Logout()
         {
             Session["username"] = null;
+            Session["pic"] = null;
             return RedirectToAction("Login", "Login");
         }
     }
